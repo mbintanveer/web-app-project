@@ -1,0 +1,41 @@
+<div>
+    <div class="submit-form">
+        <div *ngIf="!submitted">
+            <b><h2>Add a Bill</h2></b>
+            <div class="form-group">
+                <label for="name">Bill Description</label>
+                <input class="form-control" id="description" required [(ngModel)]="bill.bill_description" name="bill_description" />
+            </div>
+
+            <!-- <div class="form-group">
+                <label for="name">Bill Status</label>
+                <input class="form-control" id="status" required [(ngModel)]="bill.bill_status" name="bill_status" />
+            </div> -->
+            <div class="form-group">
+                <label for="bill_amount">Bill Amount</label>
+                <input class="form-control" id="bill_amount" required [(ngModel)]="bill.bill_amount" name="bill_amount" />
+            </div>
+
+            <div class="form-group">
+                <label for="date_created">Date Created</label> <br>
+                <input type="date" id="date_created" name="date_created" required [(ngModel)]="bill.date_created">
+                <!-- <input class="form-control" id="date_created" required [(ngModel)]="bill.date_created" name="date_created" /> -->
+            </div>
+
+            <label for="vendor">Vendor </label> <br>
+
+            <select class=form-group [(ngModel)]="bill.bill_vendor">
+                <option *ngFor="let vendor of vendors" [value]="vendor.vendor_id">
+                  {{vendor.vendor_name}}
+                </option>
+            </select>
+            <br>
+            <button (click)="saveBill()" class="btn btn-success">Submit</button>
+        </div>
+
+        <div *ngIf="submitted">
+            <h4>Bill was submitted successfully!</h4>
+            <button class="btn btn-success" (click)="newBill()">Add</button>
+        </div>
+    </div>
+</div>

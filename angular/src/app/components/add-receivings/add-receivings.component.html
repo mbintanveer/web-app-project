@@ -1,0 +1,36 @@
+<div>
+    <div class="submit-form">
+        <div *ngIf="!submitted">
+            <b><h2>Add a Receiving</h2></b>
+            <div class="form-group">
+                <label for="name">Receiving Description</label>
+                <input class="form-control" id="description" required [(ngModel)]="receiving.receiving_description" name="receiving_description" />
+            </div>
+            <div class="form-group">
+                <label for="receiving_amount">Receiving Amount</label>
+                <input class="form-control" id="receiving_amount" required [(ngModel)]="receiving.receiving_amount" name="receiving_amount" />
+            </div>
+
+            <div class="form-group">
+                <label for="date_created">Date Created</label> <br>
+                <input type="date" id="date_created" name="date_created" required [(ngModel)]="receiving.date_created">
+                <!-- <input class="form-control" id="date_created" required [(ngModel)]="receiving.date_created" name="date_created" /> -->
+            </div>
+
+            <label for="client">Client </label> <br>
+
+            <select class=form-group [(ngModel)]="receiving.receiving_client">
+                <option *ngFor="let client of clients" [value]="client.client_id">
+                  {{client.client_name}}
+                </option>
+            </select>
+            <br>
+            <button (click)="saveReceiving()" class="btn btn-success">Submit</button>
+        </div>
+
+        <div *ngIf="submitted">
+            <h4>Receiving was submitted successfully!</h4>
+            <button class="btn btn-success" (click)="newReceiving()">Add</button>
+        </div>
+    </div>
+</div>
