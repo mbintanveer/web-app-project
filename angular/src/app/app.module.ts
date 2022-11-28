@@ -71,6 +71,10 @@ import { PaymentsDetailsComponent } from './components/payments-details/payments
     PaymentsDetailsComponent,
   ],
 
+  exports: [
+    NavbarComponent,
+  ],
+
   imports: [
     AppRoutingModule,
     RouterModule,
