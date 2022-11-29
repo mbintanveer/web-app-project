@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Client} from 'src/app/models/client.model';
-import { ClientService } from 'src/app/services/client.service';
+import { Doctor} from 'src/app/models/doctor.model';
+import { DoctorService } from 'src/app/services/doctor.service';
 import { Appointment } from 'src/app/models/appointment.model';
 
 @Component({
@@ -17,33 +17,32 @@ export class AppointmentsDetailsComponent implements OnInit {
   status : any = "4";
   currentAppointment: Appointment = {
     appointment_id: '',
-    appointment_description: '',
     // appointment_amount: 0,
-    appointment_client:'',
-    date_created:''
-    ,
+    patient:'',
+    doctor:'',
+    appointment_time:'',
     
   };
   message = '';
-  clients?: Client[];
+  doctors?: Doctor[];
   constructor(
     private appointmentService: AppointmentService,
-    private clientService: ClientService,
+    private doctorService: DoctorService,
     private route: ActivatedRoute,
     private router: Router) { }
 
     ngOnInit(): void {
       this.message = '';
-      this.retrieveClients();
+      this.retrieveDoctors();
       this.getAppointment(this.route.snapshot.params.id);
     }
     
     
-  retrieveClients(): void {
-    this.clientService.getAll()
+  retrieveDoctors(): void {
+    this.doctorService.getAll()
       .subscribe(
         data => {
-          this.clients = data;
+          this.doctors = data;
           console.log(data);
         },
         error => {
@@ -66,10 +65,9 @@ export class AppointmentsDetailsComponent implements OnInit {
     updatePublished(status: boolean): void {
       const data = {
         appointment_id: this.currentAppointment.appointment_id,
-        appointment_description: this.currentAppointment.appointment_description,
         // appointment_amount: 0,
-        date_created:'',
-        appointment_client:'',
+        appointment_time:'',
+        doctor:'',
       };
   
       this.message = '';
@@ -93,7 +91,7 @@ export class AppointmentsDetailsComponent implements OnInit {
           error => {
             console.log(error);
           });
-        this.router.navigate(['/View-Clients/'+this.currentAppointment.appointment_client]);
+        this.router.navigate(['/View-Doctors/'+this.currentAppointment.patient]);
           
     }
   
@@ -103,7 +101,7 @@ export class AppointmentsDetailsComponent implements OnInit {
           response => {
        
             this.message = response.message ? response.message : 'This appointment was deleted successfully!';
-            this.router.navigate(['/View-Clients/'+this.currentAppointment.appointment_client]);
+            this.router.navigate(['/View-Doctors/'+this.currentAppointment.patient]);
           },
           error => {
             console.log(error);

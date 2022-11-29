@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Appointment } from 'src/app/models/appointment.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
 
-import { Client} from 'src/app/models/client.model';
-import { ClientService } from 'src/app/services/client.service';
+import { Doctor} from 'src/app/models/doctor.model';
+import { DoctorService } from 'src/app/services/doctor.service';
 
 import { Router } from '@angular/router';
 
@@ -16,26 +16,26 @@ import { Router } from '@angular/router';
 export class AddAppointmentsComponent implements OnInit {
   appointment: Appointment = {
     appointment_id: '',
-    appointment_description: '',
-    appointment_amount: 0,
-    date_created: '2020-01-01',
+    appointment_time: '2020-01-01',
+    patient:'',
+    doctor:'',
   };
   submitted = false;
-  clients?: Client[];
+  doctors?: Doctor[];
 
   constructor (private appointmentService: AppointmentService,
-    private clientService: ClientService,
+    private clientService: DoctorService,
     private router: Router){ }
 
   ngOnInit(): void {
-    this.retrieveClients();
+    this.retrieveAppointments();
   }
 
-  retrieveClients(): void {
+  retrieveAppointments(): void {
     this.clientService.getAll()
       .subscribe(
         data => {
-          this.clients = data;
+          this.doctors = data;
           console.log(data);
         },
         error => {
@@ -46,10 +46,9 @@ export class AddAppointmentsComponent implements OnInit {
   saveAppointment(): void {
     const data = {
       appointment_id: this.appointment.appointment_id,
-      appointment_description: this.appointment.appointment_description,
-      appointment_amount:this.appointment.appointment_amount,
-      date_created: this.appointment.date_created,
-      appointment_client:this.appointment.appointment_client,
+      appointment_time: this.appointment.appointment_time,
+      doctor:this.appointment.doctor,
+      patient:this.appointment.patient,
     };
     
 
@@ -57,7 +56,7 @@ export class AddAppointmentsComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response);
-          this.router.navigate(['/View-Clients/'+this.appointment.appointment_client]);
+          this.router.navigate(['/View-Doctors/'+this.appointment.patient]);
         },
         error => {
           console.log(error);
@@ -67,7 +66,6 @@ export class AddAppointmentsComponent implements OnInit {
   newAppointment(): void {
     this.submitted = false;
     this.appointment = {
-      appointment_description: '',
       
     };
      

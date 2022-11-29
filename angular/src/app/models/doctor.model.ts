@@ -1,13 +1,11 @@
-export class Client {
+export class Doctor {
     
-    client_id?: any;
-    client_name?: string;
-
-      
+    doctor_id?: any;
+    doctor_name?: string;
 }
 
-export class Client_Summary {
-    client_name?:string;
+export class Doctor_Summary {
+    doctor_name?:string;
     get_one_month?: number;
     get_two_month?: number;
     get_three_month?: number;

@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Client } from '../models/client.model';
+import { Doctor } from '../models/doctor.model';
 
-const baseUrl = 'http://localhost:8000/api/Clients';
-const summaryUrl = 'http://localhost:8000/api/Clients_Summary'
-const all_summary_Url='http://localhost:8000/api/All_Clients_Summary'
+const baseUrl = 'http://localhost:8000/api/Doctors';
+const summaryUrl = 'http://localhost:8000/api/Doctors_Summary'
+const all_summary_Url='http://localhost:8000/api/All_Doctors_Summary'
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class ClientService {
+export class DoctorService {
   constructor(private http: HttpClient) { }
 
 
@@ -23,7 +23,7 @@ export class ClientService {
   //   return this.http.get<Client[]>(baseUrl);
   // }
 
-  get(id: any): Observable<Client> {
+  get(id: any): Observable<Doctor> {
     return this.http.get(`${baseUrl}/${id}`);
   }
 
@@ -43,15 +43,15 @@ export class ClientService {
     return this.http.delete(baseUrl);
   }
 
-  findByClientName(client_name: any): Observable<Client[]> {
-    return this.http.get<Client[]>(`${baseUrl}?client_name_keyword=${client_name}`);
+  findByDoctorName(doctor_name: any): Observable<Doctor[]> {
+    return this.http.get<Doctor[]>(`${baseUrl}?doctor_name_keyword=${doctor_name}`);
   }
 
-  get_Client_Summary(id: any): Observable<Client> {
+  get_Doctor_Summary(id: any): Observable<Doctor> {
     return this.http.get(`${summaryUrl}/${id}`);
   }
 
-  get_all_client_summaries(): Observable<any> {
+  get_all_doctor_summaries(): Observable<any> {
     return this.http.get(all_summary_Url);
   }
 

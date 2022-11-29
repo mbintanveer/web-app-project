@@ -10,7 +10,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SummaryComponent } from './components/summary/summary.component';
 import { CashflowsComponent } from './components/cashflows/cashflows.component';
-import { AccountsComponent } from './components/accounts/accounts.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ViewAppointmentsComponent } from './components/view-appointments/view-appointments.component';
 import { AddAppointmentsComponent } from './components/add-appointments/add-appointments.component';
@@ -23,7 +22,6 @@ import { AppointmentsListComponent } from './components/appointments-list/appoin
     NavbarComponent,
     SummaryComponent,
     CashflowsComponent,
-    AccountsComponent,
     SidebarComponent,
     ViewAppointmentsComponent,
     AddAppointmentsComponent,
