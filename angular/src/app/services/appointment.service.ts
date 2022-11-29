@@ -40,8 +40,8 @@ export class AppointmentService {
     return this.http.get<Appointment[]>(`${baseUrl}?title=${title}`);
   }
 
-  findByClient(appointment_client_id: any): Observable<Appointment[]> {
-    return this.http.get<Appointment[]>(`${baseUrl}?appointment_client_id=${appointment_client_id}`);
+  findByAppointmentType(appointment_type: any): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(`${baseUrl}?appointment_type_keyword=${appointment_type}`);
   }
 
 }
