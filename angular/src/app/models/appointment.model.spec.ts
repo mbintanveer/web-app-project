@@ -1,7 +1,7 @@
-import { Invoice } from './appointment.model';
+import { Appointment } from './appointment.model';
 
-describe('Invoice', () => {
+describe('Appointment', () => {
   it('should create an instance', () => {
-    expect(new Invoice()).toBeTruthy();
+    expect(new Appointment()).toBeTruthy();
   });
 });

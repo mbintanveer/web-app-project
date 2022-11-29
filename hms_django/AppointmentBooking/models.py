@@ -24,8 +24,8 @@ class Department(models.Model):
 class Appointment(models.Model):
     appointment_id = models.AutoField(primary_key=True)
     appointment_time = models.DateTimeField
-    patient=models.ForeignKey(Patient,on_delete=models.CASCADE)
-    doctor = models.ForeignKey(Doctor,on_delete=models.CASCADE)
+    # patient=models.ForeignKey(Patient,on_delete=models.CASCADE)
+    # doctor = models.ForeignKey(Doctor,on_delete=models.CASCADE)
    
     def __str__(self):
         return "To be Set"
@@ -40,10 +40,10 @@ class Medicines(models.Model):
 
 class Prescription(models.Model):
     prescription_id=models.AutoField(primary_key=True)
-    patient = models.ForeignKey(Patient,on_delete=models.CASCADE)
+    # patient = models.ForeignKey(Patient,on_delete=models.CASCADE)
     appointment = models.ForeignKey(Appointment,on_delete=models.CASCADE)
-    doctor = models.ForeignKey(Doctor,on_delete=models.CASCADE)
-    medicines = models.ForeignKey(Medicines)
+    # doctor = models.ForeignKey(Doctor,on_delete=models.CASCADE)
+    medicines = models.ForeignKey(Medicines, on_delete=models.CASCADE)
 
     def __str__(self):
         return "To be set"
