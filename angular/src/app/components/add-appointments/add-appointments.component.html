@@ -1,0 +1,38 @@
+<div>
+    <div class="submit-form">
+        <div *ngIf="!submitted">
+            <b><h2>Add an Appointment</h2></b>
+            <div class="form-group">
+                <label for="name">Appointment Description</label>
+                <input class="form-control" id="description" required [(ngModel)]="appointment.appointment_description" name="appointment_description" />
+            </div>
+
+            <div class="form-group">
+                <label for="appointment_amount">Appointment Amount</label>
+                <input class="form-control" id="appointment_amount" required [(ngModel)]="appointment.appointment_amount" name="appointment_amount" />
+            </div>
+
+            <div class="form-group">
+                <label for="date_created">Date Created</label> <br>
+                <input type="date" id="date_created" name="date_created" required [(ngModel)]="appointment.date_created">
+            </div>
+
+            <label for="client">Client </label> <br>
+
+            <select class=form-group [(ngModel)]="appointment.appointment_client">
+                <option *ngFor="let client of clients" [value]="client.client_id">
+                  {{client.client_name}}
+                </option>
+            </select>
+
+
+            <br>
+            <button (click)="saveAppointment() " class="btn btn-success ">Submit</button>
+        </div>
+
+        <div *ngIf="submitted ">
+            <h4>Appointment was submitted successfully!</h4>
+            <button class="btn btn-success " (click)="newAppointment() ">Add</button>
+        </div>
+    </div>
+</div>

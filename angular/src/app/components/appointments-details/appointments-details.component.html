@@ -1,0 +1,49 @@
+<div>
+    <div *ngIf="currentAppointment.appointment_id" class="edit-form">
+        <b><h2>Add an Appointment</h2></b>
+        <form>
+            <div class="form-group">
+                <label for="name">Appointment Type</label>
+                <input class="form-control" id="description" required [(ngModel)]="currentAppointment.appointment_description" name="appointment_description" />
+            </div>
+            <!-- <div class="form-group">
+                <label for="appointment_amount">Appointment Amount</label>
+                <input class="form-control" id="appointment_amount" required [(ngModel)]="currentAppointment.appointment_amount" name="appointment_amount" />
+            </div> -->
+
+            <div class="form-group">
+                <label for="date_created">Date Created</label> <br>
+                <input type="date" id="date_created" name="date_created" required [(ngModel)]="currentAppointment.date_created">
+                <!-- <input class="form-control" id="date_created" required [(ngModel)]="appointment.date_created" name="date_created" /> -->
+            </div>
+
+            <!-- <div class="form-group">
+                <label for="name">Appointment Type</label>
+                <input type="text" class="form-control" id="name" [(ngModel)]="currentAppointment.appointment_type" name="appointment_type" />
+            </div> -->
+
+            <label for="client">Client ID</label> <br>
+            <select id="appointment_client" name="appointment_client" class=form-group required [(ngModel)]="currentAppointment.appointment_client">
+                <option *ngFor="let client of clients " [value]="client.client_id ">
+                  {{client.client_name}}
+                </option>
+            </select>
+
+
+        </form>
+
+        <button class="badge badge-danger mr-2 " (click)="deleteAppointment() ">
+      Delete
+    </button>
+
+        <button type="submit " class="badge badge-success mb-2 " (click)="updateAppointment() ">
+      Update
+    </button>
+        <p>{{ message }}</p>
+    </div>
+
+    <div *ngIf="!currentAppointment.appointment_id ">
+        <br />
+        <p>Cannot access this Client...</p>
+    </div>
+</div>
