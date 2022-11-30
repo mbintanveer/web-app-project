@@ -5,13 +5,16 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser 
 from rest_framework import status
-from .serializers import ClientSerializer, InvoiceSerializer, ReceivingSerializer, SpecializationSerializer
+from .serializers import  AppointmentSerializer, DepartmentSerializer,  MedicinesSerializer, PrescriptionSerializer,  SpecializationSerializer
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
+from django.http import HttpResponse
 
-from .models import Specialization, Invoice_Entry,Receiving,Invoice
+from .models import Appointment, Department, Medicines, Prescription, Specialization
 from itertools import chain
 from operator import attrgetter
+
+#Specialization
 
 @api_view(['GET', 'POST']) #Post for new
 def specializations_list(request):
@@ -57,107 +60,198 @@ def specializations_detail(request, pk):
         return JsonResponse({'message': 'Specialization was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
 
      
-#INVOICES
+#Department
 
 @api_view(['GET', 'POST']) #Post for new
-def invoices_list(request):
+def departments_list(request):
+    if request.method == 'GET':
+        department = Department.objects.all()
+        department_name_keyword = request.GET.get('department_name_keyword', None)
+        if department_name_keyword is not None:
+            department = department.filter(department_name__icontains=department_name_keyword)
+        
+        department_serializer = DepartmentSerializer(department, many=True)
+        return JsonResponse(department_serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        department_data = JSONParser().parse(request)
+        department_serializer = DepartmentSerializer(data=department_data)
+        if department_serializer.is_valid():
+            department_serializer.save()
+            return JsonResponse(department_serializer.data, status=status.HTTP_201_CREATED) 
+        return JsonResponse(department_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
   
-    if request.method == 'GET':
-        invoice = Invoice.objects.all()
-        invoice_description_keyword = request.GET.get('invoice_description_keyword', None)
-        if invoice_description_keyword is not None:   
-            invoice = invoice.filter(invoice_description__icontains=invoice_description_keyword)
-        invoice_description_keyword = request.GET.get('invoice_description_keyword', None)
-        invoice_client_id = request.GET.get('invoice_client_id', None)
-        if invoice_client_id is not None:
-            invoice = invoice.filter(invoice_client=invoice_client_id)
-        
-        invoice_serializer = InvoiceSerializer(invoice, many=True)
-        return JsonResponse(invoice_serializer.data, safe=False)
-
-    elif request.method == 'POST':
-        invoice_data = JSONParser().parse(request)
-        invoice_serializer = InvoiceSerializer(data=invoice_data)
-        if invoice_serializer.is_valid():
-            invoice_serializer.save()
-            return JsonResponse(invoice_serializer.data, status=status.HTTP_201_CREATED) 
-        return JsonResponse(invoice_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 @api_view(['GET','PUT','DELETE'])
-def invoices_detail(request, pk):  
+def departments_detail(request, pk):  
     try: 
-        invoice = Invoice.objects.get(pk=pk) 
-    except Invoice.DoesNotExist: 
-        return JsonResponse({'message': 'The tutorial does not exist'}, status=status.HTTP_404_NOT_FOUND) 
+        department = Department.objects.get(pk=pk) 
+    except Department.DoesNotExist: 
+        return JsonResponse({'message': 'The Department does not exist'}, status=status.HTTP_404_NOT_FOUND) 
     
     if request.method == 'GET': 
-        invoice_serializer = InvoiceSerializer(invoice) 
-        return JsonResponse(invoice_serializer.data) 
+        department_serializer = DepartmentSerializer(department) 
+        return JsonResponse(department_serializer.data) 
 
     elif request.method == 'PUT': 
-        invoice_data = JSONParser().parse(request) 
-        invoice_serializer = InvoiceSerializer(invoice, data=invoice_data) 
-        if invoice_serializer.is_valid(): 
-            invoice_serializer.save() 
-            return JsonResponse(invoice_serializer.data) 
-        return JsonResponse(invoice_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+        department_data = JSONParser().parse(request) 
+        department_serializer = DepartmentSerializer(department, data=department_data) 
+        if department_serializer.is_valid(): 
+            department_serializer.save() 
+            return JsonResponse(department_serializer.data) 
+        return JsonResponse(department_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
 
     elif request.method == 'DELETE': 
-        invoice.delete() 
-        return JsonResponse({'message': 'Invoice was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
-        
-#RECEIVING
+        department.delete() 
+        return JsonResponse({'message': 'Department was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
+
+#Appointment
+
 
 @api_view(['GET', 'POST']) #Post for new
-def receivings_list(request):
+def appointments_list(request):
     if request.method == 'GET':
-        receiving = Receiving.objects.all()
-        receiving_description_keyword = request.GET.get('receiving_description_keyword', None)
-        if receiving_description_keyword is not None:   
-            receiving = receiving.filter(receiving_description__icontains=receiving_description_keyword)
-        receiving_description_keyword = request.GET.get('receiving_description_keyword', None)
-        receiving_serializer = ReceivingSerializer(receiving, many=True)
-        return JsonResponse(receiving_serializer.data, safe=False)
+        appointment = Appointment.objects.all()
+        appointment_name_keyword = request.GET.get('appointment_name_keyword', None)
+        if appointment_name_keyword is not None:
+            appointment = appointment.filter(appointment_name__icontains=appointment_name_keyword)
+        
+        appointment_serializer = AppointmentSerializer(appointment, many=True)
+        return JsonResponse(appointment_serializer.data, safe=False)
 
     elif request.method == 'POST':
-        receiving_data = JSONParser().parse(request)
-        receiving_serializer = ReceivingSerializer(data=receiving_data)
-        if receiving_serializer.is_valid():
-            receiving_serializer.save()
-            return JsonResponse(receiving_serializer.data, status=status.HTTP_201_CREATED) 
-        return JsonResponse(receiving_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        appointment_data = JSONParser().parse(request)
+        appointment_serializer = AppointmentSerializer(data=appointment_data)
+        if appointment_serializer.is_valid():
+            appointment_serializer.save()
+            return JsonResponse(appointment_serializer.data, status=status.HTTP_201_CREATED) 
+        return JsonResponse(appointment_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+  
 @api_view(['GET','PUT','DELETE'])
-def receivings_detail(request, pk):  
+def appointments_detail(request, pk):  
     try: 
-        receiving = Receiving.objects.get(pk=pk) 
-    except Receiving.DoesNotExist: 
-        return JsonResponse({'message': 'The tutorial does not exist'}, status=status.HTTP_404_NOT_FOUND) 
+        appointment = Appointment.objects.get(pk=pk) 
+    except Appointment.DoesNotExist: 
+        return JsonResponse({'message': 'The Appointment does not exist'}, status=status.HTTP_404_NOT_FOUND) 
     
     if request.method == 'GET': 
-        receiving_serializer = ReceivingSerializer(receiving) 
-        return JsonResponse(receiving_serializer.data) 
+        appointment_serializer = AppointmentSerializer(appointment) 
+        return JsonResponse(appointment_serializer.data) 
 
     elif request.method == 'PUT': 
-        receiving_data = JSONParser().parse(request) 
-        receiving_serializer = ReceivingSerializer(receiving, data=receiving_data) 
-        if receiving_serializer.is_valid(): 
-            receiving_serializer.save() 
-            return JsonResponse(receiving_serializer.data) 
-        return JsonResponse(receiving_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+        appointment_data = JSONParser().parse(request) 
+        appointment_serializer = AppointmentSerializer(appointment, data=appointment_data) 
+        if appointment_serializer.is_valid(): 
+            appointment_serializer.save() 
+            return JsonResponse(appointment_serializer.data) 
+        return JsonResponse(appointment_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
 
     elif request.method == 'DELETE': 
-        receiving.delete() 
-        return JsonResponse({'message': 'Invoice was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+        appointment.delete() 
+        return JsonResponse({'message': 'Appointment was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
 
 
-# Create your views here.
+#Medicines
+
+@api_view(['GET', 'POST']) #Post for new
+def medicines_list(request):
+    if request.method == 'GET':
+        medicine = Medicines.objects.all()
+        medicine_name_keyword = request.GET.get('medicine_name_keyword', None)
+        if medicine_name_keyword is not None:
+            medicine = medicine.filter(medicine_name__icontains=medicine_name_keyword)
+        medicine_serializer = MedicinesSerializer(medicine, many=True)
+        return JsonResponse(medicine_serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        medicine_data = JSONParser().parse(request)
+        medicine_serializer = MedicinesSerializer(data=medicine_data)
+        if medicine_serializer.is_valid():
+            medicine_serializer.save()
+            return JsonResponse(medicine_serializer.data, status=status.HTTP_201_CREATED) 
+        return JsonResponse(medicine_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+  
+@api_view(['GET','PUT','DELETE'])
+def medicines_detail(request, pk):  
+    try: 
+        medicine = Medicines.objects.get(pk=pk) 
+    except Medicines.DoesNotExist: 
+        return JsonResponse({'message': 'The Medicine does not exist'}, status=status.HTTP_404_NOT_FOUND) 
+    
+    if request.method == 'GET': 
+        medicine_serializer = MedicinesSerializer(medicine) 
+        return JsonResponse(medicine_serializer.data) 
+
+    elif request.method == 'PUT': 
+        medicine_data = JSONParser().parse(request) 
+        medicine_serializer = MedicinesSerializer(medicine, data=medicine_data) 
+        if medicine_serializer.is_valid(): 
+            medicine_serializer.save() 
+            return JsonResponse(medicine_serializer.data) 
+        return JsonResponse(medicine_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+    elif request.method == 'DELETE': 
+        medicine.delete() 
+        return JsonResponse({'message': 'Medicine was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
+#Prescriptions
+
+@api_view(['GET', 'POST']) #Post for new
+def prescriptions_list(request):
+    if request.method == 'GET':
+        prescription = Prescription.objects.all()
+        prescription_name_keyword = request.GET.get('prescription_name_keyword', None)
+        if prescription_name_keyword is not None:
+            prescription = prescription.filter(prescription_name__icontains=prescription_name_keyword)
+        
+        prescription_serializer = PrescriptionSerializer(prescription, many=True)
+        return JsonResponse(prescription_serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        prescription_data = JSONParser().parse(request)
+        prescription_serializer = PrescriptionSerializer(data=prescription_data)
+        if prescription_serializer.is_valid():
+            prescription_serializer.save()
+            return JsonResponse(prescription_serializer.data, status=status.HTTP_201_CREATED) 
+        return JsonResponse(prescription_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+  
+@api_view(['GET','PUT','DELETE'])
+def prescriptions_detail(request, pk):  
+    try: 
+        prescription = Prescription.objects.get(pk=pk) 
+    except Prescription.DoesNotExist: 
+        return JsonResponse({'message': 'The Prescription does not exist'}, status=status.HTTP_404_NOT_FOUND) 
+    
+    if request.method == 'GET': 
+        prescription_serializer = PrescriptionSerializer(prescription) 
+        return JsonResponse(prescription_serializer.data) 
+
+    elif request.method == 'PUT': 
+        prescription_data = JSONParser().parse(request) 
+        prescription_serializer = PrescriptionSerializer(prescription, data=prescription_data) 
+        if prescription_serializer.is_valid(): 
+            prescription_serializer.save() 
+            return JsonResponse(prescription_serializer.data) 
+        return JsonResponse(prescription_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+    elif request.method == 'DELETE': 
+        prescription.delete() 
+        return JsonResponse({'message': 'Prescription was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
+
+# Homepage
 def Clients_Landing(request):
-    ClientsList = Client.objects.all()
-    params = {'ClientsList':ClientsList}
-    return render(request,'Clients_Landing.html',params)
+    # # ClientsList = Client.objects.all()
+    # params = {'ClientsList':ClientsList}
+    # return render(request,'Clients_Landing.html',params)
+    return HttpResponse("")
 
+def Clients_View(request):
+    return HttpResponse("")
 
 
 @api_view(['GET'])
