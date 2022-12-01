@@ -2,6 +2,7 @@ export class Doctor {
     
     doctor_id?: any;
     doctor_name?: string;
+    
 }
 
 export class Doctor_Summary {

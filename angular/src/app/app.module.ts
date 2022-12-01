@@ -11,7 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SummaryComponent } from './components/summary/summary.component';
 import { CashflowsComponent } from './components/cashflows/cashflows.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { ViewAppointmentsComponent } from './components/view-appointments/view-appointments.component';
+import { DoctorsListComponent } from './components/doctors-list/doctors-list.component';
 import { AddAppointmentsComponent } from './components/add-appointments/add-appointments.component';
 import { AppointmentsDetailsComponent } from './components/appointments-details/appointments-details.component';
 import { AppointmentsListComponent } from './components/appointments-list/appointments-list.component';
@@ -23,7 +23,7 @@ import { AppointmentsListComponent } from './components/appointments-list/appoin
     SummaryComponent,
     CashflowsComponent,
     SidebarComponent,
-    ViewAppointmentsComponent,
+    DoctorsListComponent,
     AddAppointmentsComponent,
     AppointmentsDetailsComponent,
     AppointmentsListComponent,
