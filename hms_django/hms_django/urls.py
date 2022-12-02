@@ -9,6 +9,8 @@ urlpatterns = [
 
     url(r'^', include('AppointmentBooking.urls')),
 
+    path('api/', include('UserSystem.urls')),
+
     
     #Default
     path('', view.index, name='index'),
