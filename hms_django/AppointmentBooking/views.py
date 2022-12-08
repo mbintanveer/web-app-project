@@ -5,12 +5,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser 
 from rest_framework import status
-from .serializers import  AppointmentSerializer, DepartmentSerializer,  MedicinesSerializer, PrescriptionSerializer,  SpecializationSerializer
+from .serializers import  AppointmentSerializer, DemoSerializer, DepartmentSerializer,  MedicinesSerializer, PrescriptionSerializer,  SpecializationSerializer
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from django.http import HttpResponse
 
-from .models import Appointment, Department, Medicines, Prescription, Specialization
+from .models import Appointment, Demo, Department, Medicines, Prescription, Specialization
 from itertools import chain
 from operator import attrgetter
 
@@ -59,7 +59,51 @@ def specializations_detail(request, pk):
         specialization.delete() 
         return JsonResponse({'message': 'Specialization was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
 
-     
+#DEMO
+@api_view(['GET', 'POST']) #Post for new
+def demos_list(request):
+    if request.method == 'GET':
+        demo = Demo.objects.all()
+        demo_name_keyword = request.GET.get('demo_name_keyword', None)
+        if demo_name_keyword is not None:
+            demo = demo.filter(demo_name__icontains=demo_name_keyword)
+        
+        demo_serializer = DemoSerializer(demo, many=True)
+        return JsonResponse(demo_serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        demo_data = JSONParser().parse(request)
+        demo_serializer = DemoSerializer(data=demo_data)
+        if demo_serializer.is_valid():
+            demo_serializer.save()
+            return JsonResponse(demo_serializer.data, status=status.HTTP_201_CREATED) 
+        return JsonResponse(demo_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+  
+@api_view(['GET','PUT','DELETE'])
+def demos_detail(request, pk):  
+    try: 
+        demo = Demo.objects.get(pk=pk) 
+    except Demo.DoesNotExist: 
+        return JsonResponse({'message': 'The Demo does not exist'}, status=status.HTTP_404_NOT_FOUND) 
+    
+    if request.method == 'GET': 
+        demo_serializer = DemoSerializer(demo) 
+        return JsonResponse(demo_serializer.data) 
+
+    elif request.method == 'PUT': 
+        demo_data = JSONParser().parse(request) 
+        demo_serializer = DemoSerializer(demo, data=demo_data) 
+        if demo_serializer.is_valid(): 
+            demo_serializer.save() 
+            return JsonResponse(demo_serializer.data) 
+        return JsonResponse(demo_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+    elif request.method == 'DELETE': 
+        demo.delete() 
+        return JsonResponse({'message': 'Demo was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
+
 #Department
 
 @api_view(['GET', 'POST']) #Post for new

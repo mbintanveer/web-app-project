@@ -1,10 +1,16 @@
 from rest_framework import serializers
-from .models import Specialization,Prescription,Medicines,Department,Appointment
+from .models import Specialization,Prescription,Medicines,Department,Appointment, Demo
 
 class SpecializationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Specialization
         fields = ('specialization_id', 'specialization_desc')
+
+class DemoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Demo
+        fields = ('demo_id', 'demo_desc')
+
 
 class PrescriptionSerializer(serializers.ModelSerializer):
     class Meta:

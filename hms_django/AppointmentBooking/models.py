@@ -12,6 +12,13 @@ class Specialization(models.Model):
     def __str__(self):
         return self.specialization_desc
 
+class Demo(models.Model):
+    demo_id = models.AutoField(primary_key=True)
+    demo_desc = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.demo_desc
+
 
 class Department(models.Model):
     department_id = models.AutoField(primary_key=True)
@@ -30,6 +37,7 @@ class Appointment(models.Model):
     def __str__(self):
         return "To be Set"
 
+
 class Medicines(models.Model):
     medicines_id=models.AutoField(primary_key=True)
     medicines_qty = models.IntegerField()
@@ -37,6 +45,7 @@ class Medicines(models.Model):
 
     def __str__(self):
         return "To be set"
+
 
 class Prescription(models.Model):
     prescription_id=models.AutoField(primary_key=True)
