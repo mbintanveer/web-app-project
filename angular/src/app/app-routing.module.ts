@@ -10,6 +10,8 @@ import { AddAppointmentsComponent } from './components/add-appointments/add-appo
 import { DoctorsListComponent } from './components/doctors-list/doctors-list.component';
 import { DoctorsDetailsComponent } from './components/doctors-details/doctors-details.component';
 
+//AUTH
+import { UserLoginComponent } from "./components/user-login/user-login.component";
 
 
 
@@ -21,8 +23,12 @@ const routes: Routes = [
   { path: 'Appointments/:id', component: AppointmentsDetailsComponent },
   { path: 'Add-Appointment', component: AddAppointmentsComponent },
 
+  //Doctors
   { path: 'Doctors', component: DoctorsListComponent },
   { path: 'Doctors/:id', component: DoctorsDetailsComponent },
+
+  //Login
+  { path: 'login', component: UserLoginComponent },
 
 
 ];
