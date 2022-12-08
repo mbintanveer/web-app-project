@@ -12,8 +12,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SummaryComponent } from './components/summary/summary.component';
-import { CashflowsComponent } from './components/cashflows/cashflows.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DoctorsListComponent } from './components/doctors-list/doctors-list.component';
 import { AddAppointmentsComponent } from './components/add-appointments/add-appointments.component';
@@ -34,8 +32,6 @@ import { MatCardModule } from '@angular/material/card';
   declarations: [
     AppComponent,
     NavbarComponent,
-    SummaryComponent,
-    CashflowsComponent,
     SidebarComponent,
     DoctorsListComponent,
     AddAppointmentsComponent,
