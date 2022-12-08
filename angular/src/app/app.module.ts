@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { HTTP_INTERCEPTORS} from "@angular/common/http";
+import { TokenInterceptor } from "./components/user-login/token.interceptor";
 
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
@@ -24,6 +26,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -38,6 +42,7 @@ import { MatInputModule } from '@angular/material/input';
     AppointmentsDetailsComponent,
     AppointmentsListComponent,
     UserLoginComponent,
+    UserProfileComponent,
   ],
 
   exports: [
@@ -49,6 +54,7 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
+    MatCardModule,
     MatListModule ,
     MatStepperModule,
     MatInputModule,
@@ -62,7 +68,7 @@ import { MatInputModule } from '@angular/material/input';
     HttpClientModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 

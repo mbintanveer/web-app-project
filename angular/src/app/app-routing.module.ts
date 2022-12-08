@@ -12,8 +12,8 @@ import { DoctorsDetailsComponent } from './components/doctors-details/doctors-de
 
 //AUTH
 import { UserLoginComponent } from "./components/user-login/user-login.component";
-
-
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { AuthGuard } from "./components/user-login/auth.guard";
 
 const routes: Routes = [
   // { path: '', redirectTo: 'Clients', pathMatch: 'full' },
@@ -29,6 +29,7 @@ const routes: Routes = [
 
   //Login
   { path: 'login', component: UserLoginComponent },
+  { path: 'user-profile/:id', component: UserProfileComponent },
 
 
 ];

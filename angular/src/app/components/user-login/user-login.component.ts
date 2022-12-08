@@ -25,7 +25,7 @@ export class UserLoginComponent implements OnInit {
    this.authService.logIn(user.username, user.password).subscribe({
      next: (data) => {
        this.authService.setLoggedInUser(data);
-      //  this.router.navigateByUrl(`/user-profile/${data.id}`);
+       this.router.navigateByUrl(`/user-profile/${data.user_id}`);
      },
      error: (error) => {
        console.log(error);
