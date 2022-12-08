@@ -22,12 +22,14 @@ DEBUG = True
 INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'AppointmentBooking.apps.AppointmentbookingConfig', 
     'UserSystem.apps.UsersystemConfig'
     
@@ -72,16 +74,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'hms_django.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+ACCOUNT_UNIQUE_EMAIL=True
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
 
 DATABASES = {
     'default': {
@@ -137,14 +137,3 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL='UserSystem.User'
-
-#PostGres
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'abacusfinance',
-#         'USER' : 'abacusfinanceadmin',
-#         'PASSWORD':'youtube.com/marmlaxGamma_29',
-#         'HOST':'localhost',
-#     }
-# }

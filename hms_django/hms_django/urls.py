@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^', include('AppointmentBooking.urls')),
 
     path('api/', include('UserSystem.urls')),
+    path('api/', include('UserSystem.api.urls')),
 
     
     #Default
