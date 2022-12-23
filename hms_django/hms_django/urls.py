@@ -12,12 +12,10 @@ urlpatterns = [
     path('api/', include('UserSystem.urls')),
     path('api/', include('UserSystem.api.urls')),
 
+    path('admin/', admin.site.urls),
+
     
     #Default
     path('', view.index, name='index'),
-    path('admin/', admin.site.urls,name='admin'),
-    path('signIn/',view.signIn,name='signIn'),
-    path('signOut/',view.signOut,name='signOut'),
-    path('unavailable/',view.unavailable,name='unavailable')
 
 ]

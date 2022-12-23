@@ -1,3 +1,5 @@
+import json
+import string
 from django.http import response
 from django.urls import reverse
 from django.shortcuts import render
@@ -10,7 +12,7 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from django.http import HttpResponse
 
-from .models import Appointment, Demo, Department, Medicines, Prescription, Specialization
+from .models import Appointment, Demo,  Department, Medicines, Prescription, Specialization
 from itertools import chain
 from operator import attrgetter
 
@@ -103,6 +105,7 @@ def demos_detail(request, pk):
         demo.delete() 
         return JsonResponse({'message': 'Demo was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
 
+ 
 
 #Department
 
@@ -160,9 +163,10 @@ def appointments_list(request):
         appointment_name_keyword = request.GET.get('appointment_name_keyword', None)
         if appointment_name_keyword is not None:
             appointment = appointment.filter(appointment_name__icontains=appointment_name_keyword)
-        
         appointment_serializer = AppointmentSerializer(appointment, many=True)
-        return JsonResponse(appointment_serializer.data, safe=False)
+        # print(appointment_serializer.data)
+        return JsonResponse((appointment_serializer.data), safe=False)
+      
 
     elif request.method == 'POST':
         appointment_data = JSONParser().parse(request)

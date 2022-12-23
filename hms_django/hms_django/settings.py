@@ -56,6 +56,7 @@ ROOT_URLCONF = 'hms_django.urls'
 import os
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

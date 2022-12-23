@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Specialization,Prescription,Medicines,Department,Appointment, Demo
+from .models import  Specialization,Prescription,Medicines,Department,Appointment, Demo
 
 class SpecializationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,12 +12,15 @@ class DemoSerializer(serializers.ModelSerializer):
         fields = ('demo_id', 'demo_desc')
 
 
+
+
 class PrescriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Prescription
         fields = ('prescription_id',
    'appointment',
     'medicines')
+
 
 class MedicinesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,6 +29,7 @@ class MedicinesSerializer(serializers.ModelSerializer):
         'medicines_qty',
         'medicines_name' )
 
+
 class DepartmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Department
@@ -33,9 +37,14 @@ class DepartmentSerializer(serializers.ModelSerializer):
     'department_name',
     'department_location' )
 
+
 class AppointmentSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = Appointment
         fields = ('appointment_id',
-                'appointment_time',)
+                'appointment_time',
+                'patient',
+                'doctor',
+                )
 

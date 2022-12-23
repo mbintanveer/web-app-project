@@ -1,3 +1,4 @@
+import json
 import os
 from django.db import models
 from django.db.models.signals import post_save
@@ -19,7 +20,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['username']
 
     def __str__(self):
-        return self.username
+        return self.name 
 
 @receiver(post_save,sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender,instance=None,created=False, **kwargs):
@@ -35,9 +36,12 @@ class Patient(models.Model):
 
 
     def __str__(self):
-        return self.user.username
+        return self.user.name
 
-
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__, 
+            sort_keys=True, indent=4)
+            
 class Doctor(models.Model):
     user=models.OneToOneField(User, related_name='doctor',on_delete=models.CASCADE)
     address=models.CharField(max_length=255,blank=True)
@@ -47,4 +51,8 @@ class Doctor(models.Model):
     
 
     def __str__(self):
-        return self.user.username
+        return self.user.name
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__, 
+            sort_keys=True, indent=4)

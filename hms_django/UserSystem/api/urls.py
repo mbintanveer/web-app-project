@@ -1,5 +1,8 @@
 from  django.urls import path
-from .views import PatientSignupView, DoctorSignupView,CustomAuthToken, LogoutView, PatientOnlyView, DoctorOnlyView
+from .views import PatientSignupView,doctors_list,doctors_detail, DoctorSignupView,CustomAuthToken, LogoutView, PatientOnlyView, DoctorOnlyView
+from . import views
+
+from django.conf.urls import url
 
 urlpatterns = [
 
@@ -12,6 +15,12 @@ urlpatterns = [
 
     path('patient/dashboard', PatientOnlyView.as_view()),
     path('doctor/dashboard', DoctorOnlyView.as_view()),
+
+    url(r'Doctors$', views.doctors_list),
+    url(r'Doctors/(?P<pk>[0-9]+)$', views.doctors_detail),
+
+    url(r'Patients$', views.patients_list),
+    url(r'Patients/(?P<pk>[0-9]+)$', views.patients_detail),
 
 
 

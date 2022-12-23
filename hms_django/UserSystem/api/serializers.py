@@ -66,3 +66,23 @@ class DoctorSignupSerializer(serializers.ModelSerializer):
         Doctor.objects.create(user=user)
 
         return user
+
+class DoctorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Doctor
+        fields = ('user',
+    'address',
+    'phone',
+    'age',
+    'gender')
+
+
+class PatientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Patient
+        fields = ('user',
+    'address',
+    'phone',
+    'age',
+    'gender')
+    
