@@ -65,13 +65,21 @@ class DoctorSignupSerializer(serializers.ModelSerializer):
         return user
 
 class DoctorSerializer(serializers.ModelSerializer):
+
+    user = serializers.SlugRelatedField(
+    many=False,
+    read_only=True,
+    slug_field='name'
+    )
+
     class Meta:
         model = Doctor
-        fields = ('user',
+        fields = (
     'address',
     'phone',
     'age',
-    'gender')
+    'gender',
+    'doctor')
 
 
 class PatientSerializer(serializers.ModelSerializer):
@@ -89,7 +97,7 @@ class PatientSerializer(serializers.ModelSerializer):
     'phone',
     'age',
     'gender',
-    'user',
+    'patient',
     
     )
     

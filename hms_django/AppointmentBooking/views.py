@@ -155,7 +155,6 @@ def departments_detail(request, pk):
 
 #Appointment
 
-
 @api_view(['GET', 'POST']) #Post for new
 def appointments_list(request):
     if request.method == 'GET':
@@ -163,10 +162,9 @@ def appointments_list(request):
         appointment_name_keyword = request.GET.get('appointment_name_keyword', None)
         if appointment_name_keyword is not None:
             appointment = appointment.filter(appointment_name__icontains=appointment_name_keyword)
+        
         appointment_serializer = AppointmentSerializer(appointment, many=True)
-        # print(appointment_serializer.data)
-        return JsonResponse((appointment_serializer.data), safe=False)
-      
+        return JsonResponse(appointment_serializer.data, safe=False)
 
     elif request.method == 'POST':
         appointment_data = JSONParser().parse(request)
@@ -199,6 +197,7 @@ def appointments_detail(request, pk):
     elif request.method == 'DELETE': 
         appointment.delete() 
         return JsonResponse({'message': 'Appointment was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
 
 
 #Medicines

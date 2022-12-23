@@ -27,6 +27,16 @@ def create_auth_token(sender,instance=None,created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
 
+class Doctor(models.Model):
+    user=models.OneToOneField(User, related_name='doctor',on_delete=models.CASCADE)
+    address=models.CharField(max_length=255,blank=True)
+    phone=models.IntegerField(blank=True,null=True)
+    age=models.IntegerField(blank=True,null=True)
+    gender=models.CharField(max_length=255,blank=True)
+    
+    def __str__(self):
+        return self.user.name
+        
 class Patient(models.Model):
     user=models.OneToOneField(User, related_name='patient',on_delete=models.CASCADE)
     address=models.CharField(max_length=255,blank=True)
@@ -38,21 +48,12 @@ class Patient(models.Model):
     def __str__(self):
         return self.user.name
 
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, 
-            sort_keys=True, indent=4)
+    # def toJSON(self):
+    #     return json.dumps(self, default=lambda o: o.__dict__, 
+    #         sort_keys=True, indent=4)
             
-class Doctor(models.Model):
-    user=models.OneToOneField(User, related_name='doctor',on_delete=models.CASCADE)
-    address=models.CharField(max_length=255,blank=True)
-    phone=models.IntegerField(blank=True,null=True)
-    age=models.IntegerField(blank=True,null=True)
-    gender=models.CharField(max_length=255,blank=True)
-    
 
-    def __str__(self):
-        return self.user.name
 
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, 
-            sort_keys=True, indent=4)
+    # def toJSON(self):
+    #     return json.dumps(self, default=lambda o: o.__dict__, 
+    #         sort_keys=True, indent=4)

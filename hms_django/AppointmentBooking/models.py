@@ -36,10 +36,10 @@ class Appointment(models.Model):
     appointment_time = models.DateTimeField
     patient=models.ForeignKey(Patient,on_delete=models.CASCADE,related_name='appointment_patient')
     doctor = models.ForeignKey(Doctor,on_delete=models.CASCADE,related_name='appointment_doctor')
-    description=models.TextField()
+    description=models.CharField(max_length=255)
    
     def __str__(self):
-        return self.description + " - " + self.patient.user.name + " - Dr. " + self.doctor.user.name
+         return self.description + " - "  + self.patient.user.name + " - Dr. " + self.doctor.user.name
 
 class Medicines(models.Model):
     medicines_id=models.AutoField(primary_key=True)
