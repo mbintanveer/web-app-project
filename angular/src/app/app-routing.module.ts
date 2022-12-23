@@ -15,22 +15,25 @@ import { AuthGuard } from "./components/user-login/auth.guard";
 
 const routes: Routes = [
   // { path: '', redirectTo: 'Clients', pathMatch: 'full' },
-  { path: '', component: UserLoginComponent, pathMatch: 'full' },
+  { path: '', component: UserProfileComponent, pathMatch: 'full', canActivate: [AuthGuard] },
 
-  { path: 'Appointments', component: AppointmentsListComponent },
-  { path: 'Appointments/:id', component: AppointmentsDetailsComponent },
-  { path: 'Add-Appointment', component: AddAppointmentsComponent },
+  { path: 'Appointments', component: AppointmentsListComponent,canActivate: [AuthGuard] },
+  { path: 'Appointments/:id', component: AppointmentsDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'Add-Appointment', component: AddAppointmentsComponent, canActivate: [AuthGuard] },
 
   //Doctors
-  { path: 'Doctors', component: DoctorsListComponent },
-  { path: 'Doctors/:id', component: DoctorsDetailsComponent },
+  { path: 'Doctors', component: DoctorsListComponent, canActivate: [AuthGuard] },
+  { path: 'Doctors/:id', component: DoctorsDetailsComponent,  },
 
   //Login
   { path: 'login', component: UserLoginComponent },
-  { path: 'user-profile/:id', component: UserProfileComponent },
+  { path: 'user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard] },
 
+  //Other Redirect
+  { path: '**', redirectTo: '' }
 
 ];
+export const routing = RouterModule.forRoot(routes);
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
