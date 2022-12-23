@@ -2,10 +2,7 @@ from rest_framework import serializers
 
 from UserSystem.models import User, Patient, Doctor
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=User
-        fields=['username','email', 'is_doctor', 'is_patient']
+
 
 
 class PatientSignupSerializer(serializers.ModelSerializer):
@@ -78,11 +75,26 @@ class DoctorSerializer(serializers.ModelSerializer):
 
 
 class PatientSerializer(serializers.ModelSerializer):
+
+    user = serializers.SlugRelatedField(
+    many=False,
+    read_only=True,
+    slug_field='name'
+    )
+
     class Meta:
         model = Patient
-        fields = ('user',
+        fields = (
     'address',
     'phone',
     'age',
-    'gender')
+    'gender',
+    'user',
     
+    )
+    
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model=User
+        fields=['username','email', 'is_doctor', 'is_patient',]
