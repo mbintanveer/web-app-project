@@ -33,9 +33,8 @@ class Department(models.Model):
 
 class Appointment(models.Model):
     appointment_id = models.AutoField(primary_key=True)
-    appointment_time = models.DateTimeField
-    patient=models.ForeignKey(Patient,on_delete=models.CASCADE,related_name='appointment_patient')
-    doctor = models.ForeignKey(Doctor,on_delete=models.CASCADE,related_name='appointment_doctor')
+    patient=models.ForeignKey(Patient,on_delete=models.CASCADE,related_name='patient')
+    doctor = models.ForeignKey(Doctor,on_delete=models.CASCADE,related_name='doctor')
     description=models.CharField(max_length=255)
    
     def __str__(self):

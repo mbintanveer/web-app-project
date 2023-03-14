@@ -40,14 +40,25 @@ class DepartmentSerializer(serializers.ModelSerializer):
 
 class AppointmentSerializer(serializers.ModelSerializer):
     
+    # patient = serializers.StringRelatedField(many=False)
+    # doctor = serializers.StringRelatedField(many=False)
+
+    class Meta:
+        model = Appointment
+        fields = ('appointment_id',
+                'patient',
+                'doctor',
+                'description'
+                )
+
+class GetAppointmentSerializer(serializers.ModelSerializer):
+    
     patient = serializers.StringRelatedField(many=False)
-    appointment_time = serializers.StringRelatedField(many=False)
     doctor = serializers.StringRelatedField(many=False)
 
     class Meta:
         model = Appointment
         fields = ('appointment_id',
-                'appointment_time',
                 'patient',
                 'doctor',
                 'description'

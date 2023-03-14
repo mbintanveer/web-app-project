@@ -7,10 +7,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser 
 from rest_framework import status
-from .serializers import  AppointmentSerializer, DemoSerializer, DepartmentSerializer,  MedicinesSerializer, PrescriptionSerializer,  SpecializationSerializer
+from .serializers import  AppointmentSerializer, DemoSerializer, DepartmentSerializer, GetAppointmentSerializer,  MedicinesSerializer, PrescriptionSerializer,  SpecializationSerializer
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from django.http import HttpResponse
+from UserSystem.models import Patient
 
 from .models import Appointment, Demo,  Department, Medicines, Prescription, Specialization
 from itertools import chain
@@ -163,12 +164,25 @@ def appointments_list(request):
         if appointment_name_keyword is not None:
             appointment = appointment.filter(appointment_name__icontains=appointment_name_keyword)
         
-        appointment_serializer = AppointmentSerializer(appointment, many=True)
+        appointment_serializer = GetAppointmentSerializer(appointment, many=True)
         return JsonResponse(appointment_serializer.data, safe=False)
 
     elif request.method == 'POST':
         appointment_data = JSONParser().parse(request)
+        user_id = appointment_data['patient']
+        try: 
+            patient = Patient.objects.get(user=user_id) 
+            print(patient.user.name)
+            appointment_data['patient']=patient.pk
+        except Patient.DoesNotExist: 
+            return JsonResponse({'message': 'The tutorial does not exist'}, status=status.HTTP_404_NOT_FOUND) 
+    
+  
+        print(appointment_data)
+
         appointment_serializer = AppointmentSerializer(data=appointment_data)
+        # patient_id = appointment_serializer.
+        
         if appointment_serializer.is_valid():
             appointment_serializer.save()
             return JsonResponse(appointment_serializer.data, status=status.HTTP_201_CREATED) 
@@ -198,6 +212,29 @@ def appointments_detail(request, pk):
         appointment.delete() 
         return JsonResponse({'message': 'Appointment was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
 
+@api_view(['GET','PUT','DELETE'])
+def appointmentsByPatient(request, pk):  
+    if request.method == 'GET':
+        patient = Patient.objects.get(user=pk) 
+        patient=Patient.objects.get(pk=patient.pk)
+        appointment = Appointment.objects.filter(patient=patient)
+        appointment_name_keyword = request.GET.get('appointment_name_keyword', None)
+        if appointment_name_keyword is not None:
+            appointment = appointment.filter(appointment_name__icontains=appointment_name_keyword)
+        
+        appointment_serializer = GetAppointmentSerializer(appointment, many=True)
+        return JsonResponse(appointment_serializer.data, safe=False)
+    
+        
+        
+        
+    elif request.method == 'POST':
+        appointment_data = JSONParser().parse(request)
+        appointment_serializer = AppointmentSerializer(data=appointment_data)
+        if appointment_serializer.is_valid():
+            appointment_serializer.save()
+            return JsonResponse(appointment_serializer.data, status=status.HTTP_201_CREATED) 
+        return JsonResponse(appointment_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 #Medicines

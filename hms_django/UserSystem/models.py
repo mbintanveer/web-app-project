@@ -28,7 +28,7 @@ def create_auth_token(sender,instance=None,created=False, **kwargs):
         Token.objects.create(user=instance)
 
 class Doctor(models.Model):
-    user=models.OneToOneField(User, related_name='doctor',on_delete=models.CASCADE)
+    user=models.OneToOneField(User, related_name='user',on_delete=models.CASCADE)
     address=models.CharField(max_length=255,blank=True)
     phone=models.IntegerField(blank=True,null=True)
     age=models.IntegerField(blank=True,null=True)

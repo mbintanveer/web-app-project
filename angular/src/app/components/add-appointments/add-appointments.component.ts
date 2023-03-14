@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Appointment } from 'src/app/models/appointment.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
 
+import { ActivatedRoute } from "@angular/router";
+
 import { Doctor} from 'src/app/models/doctor.model';
 import { DoctorService } from 'src/app/services/doctor.service';
 
@@ -15,17 +17,20 @@ import { Router } from '@angular/router';
 
 export class AddAppointmentsComponent implements OnInit {
   appointment: Appointment = {
-    appointment_id: '',
-    appointment_time: '2020-01-01',
     patient:'',
     doctor:'',
+    description:''
   };
   submitted = false;
   doctors?: Doctor[];
 
   constructor (private appointmentService: AppointmentService,
     private clientService: DoctorService,
-    private router: Router){ }
+    private router: Router,
+    private activatedRoute: ActivatedRoute){
+
+      
+     }
 
   ngOnInit(): void {
     this.retrieveAppointments();
@@ -44,14 +49,19 @@ export class AddAppointmentsComponent implements OnInit {
   }
 
   saveAppointment(): void {
+    
+    // const userData = ;
+ 
+    const userData = JSON.parse(localStorage.getItem('userData')|| '{}')
+ 
     const data = {
-      appointment_id: this.appointment.appointment_id,
-      appointment_time: this.appointment.appointment_time,
+      
+      description: this.appointment.description,
       doctor:this.appointment.doctor,
-      patient:this.appointment.patient,
+      patient: ""+userData.user_id
+      // patient: 3
     };
     
-
     this.appointmentService.create(data)
       .subscribe(
         response => {

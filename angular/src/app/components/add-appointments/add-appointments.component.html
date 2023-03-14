@@ -1,23 +1,26 @@
 <div>
     <div class="submit-form">
         <div *ngIf="!submitted">
-            <b><h2>Add an Appointment</h2></b>
+            <b><h2>Add an Appointment - Now</h2></b>
             
 
-
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="appointment_time">Date Created</label> <br>
                 <input type="date" id="appointment_time" name="appointment_time" required [(ngModel)]="appointment.appointment_time">
-            </div>
+            </div> -->
 
             <label for="doctor">Doctor </label> <br>
 
             <select class=form-group [(ngModel)]="appointment.doctor">
-                <option *ngFor="let doctor of doctors" [value]="doctor.doctor_id">
-                  {{doctor.doctor_name}}
+                <option *ngFor="let doctor of doctors" [value]="doctor.id">
+                  {{doctor.user}}
                 </option>
             </select>
 
+            <div class="form-group">
+                <label for="description">Description</label> <br>
+                <input type="text" id="description" required [(ngModel)]="appointment.description" name="description">
+            </div>
 
             <br>
             <button (click)="saveAppointment() " class="btn btn-success ">Submit</button>

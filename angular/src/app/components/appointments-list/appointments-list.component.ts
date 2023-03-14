@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Appointment } from 'src/app/models/appointment.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
 
-
 @Component({
   selector: 'app-appointment-list',
   templateUrl: './appointments-list.component.html',
@@ -21,15 +20,21 @@ export class AppointmentsListComponent implements OnInit {
   count = 0;
   tableSize = 10;
 
-  constructor(private appointmentService: AppointmentService) { }
+  constructor(private appointmentService: AppointmentService) { 
+}
 
   ngOnInit(): void {
     this.retrieveAppointments();
+
+    
   }
 
   
   retrieveAppointments(): void {
-    this.appointmentService.getAll()
+    const userData = JSON.parse(localStorage.getItem('userData')|| '{}')
+    console.log(userData.user_id);
+    this.appointmentService.getAll(userData.user_id)
+    
       .subscribe(
         data => {
           this.appointments = data;

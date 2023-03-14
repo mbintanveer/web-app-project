@@ -14,10 +14,10 @@ export class DoctorsDetailsComponent implements OnInit {
   
   status : any = "4";
   currentDoctor: Doctor = {
-    doctor_id: '',
+    id: '',
     // doctor_amount: 0,
 
-    doctor_name:'',
+    user:'',
     
   };
   message = '';
@@ -60,7 +60,7 @@ export class DoctorsDetailsComponent implements OnInit {
   
     updatePublished(status: boolean): void {
       const data = {
-        doctor_id: this.currentDoctor.doctor_id,
+        doctor_id: this.currentDoctor.id,
         // doctor_amount: 0,
         doctor_time:'',
         doctor:'',
@@ -68,7 +68,7 @@ export class DoctorsDetailsComponent implements OnInit {
   
       this.message = '';
   
-      this.doctorService.update(this.currentDoctor.doctor_id, data)
+      this.doctorService.update(this.currentDoctor.id, data)
         .subscribe(
           response => {
             console.log(response);
@@ -81,7 +81,7 @@ export class DoctorsDetailsComponent implements OnInit {
   
     updateDoctor(): void {
   
-      this.doctorService.update(this.currentDoctor.doctor_id, this.currentDoctor)
+      this.doctorService.update(this.currentDoctor.id, this.currentDoctor)
         .subscribe(
             
           error => {
@@ -92,7 +92,7 @@ export class DoctorsDetailsComponent implements OnInit {
     }
   
     deleteDoctor(): void {
-      this.doctorService.delete(this.currentDoctor.doctor_id)
+      this.doctorService.delete(this.currentDoctor.id)
         .subscribe(
           response => {
        

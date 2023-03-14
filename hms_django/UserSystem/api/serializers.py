@@ -67,19 +67,21 @@ class DoctorSignupSerializer(serializers.ModelSerializer):
 class DoctorSerializer(serializers.ModelSerializer):
 
     user = serializers.SlugRelatedField(
-    many=False,
-    read_only=True,
-    slug_field='name'
+        many=False,
+        read_only=True,
+        slug_field='name'
     )
 
     class Meta:
         model = Doctor
         fields = (
-    'address',
-    'phone',
-    'age',
-    'gender',
-    'doctor')
+        'user',
+        'id',
+        'address',
+        'phone',
+        'age',
+        'gender',
+    )
 
 
 class PatientSerializer(serializers.ModelSerializer):

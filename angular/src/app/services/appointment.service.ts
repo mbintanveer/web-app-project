@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Appointment } from '../models/appointment.model';
 
 const baseUrl = 'http://localhost:8000/api/Appointments';
+const patientUrl = 'http://localhost:8000/api/AppointmentsByPatient';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ const baseUrl = 'http://localhost:8000/api/Appointments';
 export class AppointmentService {
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Appointment[]> {
-    return this.http.get<Appointment[]>(baseUrl);
+  getAll(id: any): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(`${patientUrl}/${id}`);
   }
 
   get(id: any): Observable<Appointment> {

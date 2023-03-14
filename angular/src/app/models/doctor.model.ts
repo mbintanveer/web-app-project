@@ -1,7 +1,7 @@
 export class Doctor {
     
-    doctor_id?: any;
-    doctor_name?: string;
+    id?: any;
+    user?: string;
     
 }
 
