@@ -86,11 +86,12 @@ ACCOUNT_UNIQUE_EMAIL=True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hms-django',
-        'USER': 'root',
-        'PASSWORD': 'amt411',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'NAME': os.environ.get('DB_NAME', 'mydbname'),
+        'USER': os.environ.get('DB_USER', 'mydbuser'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'mydbpassword'),
+        'HOST': os.environ.get('DB_HOST', 'mydbhost'),
+        'PORT': os.environ.get('DB_PORT', '3306'),
+        
         'OPTIONS': {  
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
         }  
