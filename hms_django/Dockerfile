@@ -1,7 +1,15 @@
-
 FROM python:3.7-slim-buster
 
-RUN apt-get update && apt-get install -y pkg-config
+# RUN apt-get update && apt-get install -y pkg-config
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+#
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        default-libmysqlclient-dev \
+        gcc \
+    && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory to /app
 WORKDIR /app
@@ -12,14 +20,10 @@ COPY ./requirements.txt /app/
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
+COPY entrypoint.sh /entrypoint.sh
+
 # Copy the current directory contents into the container at /app
 COPY . /app/
-
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
-ENV PYTHONPATH "/app"
 
 EXPOSE 8000
 

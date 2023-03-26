@@ -89,12 +89,12 @@ DATABASES = {
         'NAME': os.environ.get('DB_NAME', 'mydbname'),
         'USER': os.environ.get('DB_USER', 'mydbuser'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'mydbpassword'),
-        'HOST': os.environ.get('DB_HOST', 'mydbhost'),
+        'HOST': os.environ.get('DB_HOST', 'db'),
         'PORT': os.environ.get('DB_PORT', '3306'),
         
-        'OPTIONS': {  
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
-        }  
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
     }
 }
 
