@@ -33,6 +33,7 @@ class Doctor(models.Model):
     phone=models.IntegerField(blank=True,null=True)
     age=models.IntegerField(blank=True,null=True)
     gender=models.CharField(max_length=255,blank=True)
+    #ADD DEPARTMENT
     
     def __str__(self):
         return self.user.name
@@ -48,12 +49,3 @@ class Patient(models.Model):
     def __str__(self):
         return self.user.name
 
-    # def toJSON(self):
-    #     return json.dumps(self, default=lambda o: o.__dict__, 
-    #         sort_keys=True, indent=4)
-            
-
-
-    # def toJSON(self):
-    #     return json.dumps(self, default=lambda o: o.__dict__, 
-    #         sort_keys=True, indent=4)

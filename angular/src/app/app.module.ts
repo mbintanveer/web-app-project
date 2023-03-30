@@ -46,6 +46,8 @@ import { MatCardModule } from '@angular/material/card';
   ],
 
   imports: [
+    AppRoutingModule,
+    RouterModule,
     MatToolbarModule, 
     MatButtonModule,
     MatSidenavModule,
@@ -56,8 +58,6 @@ import { MatCardModule } from '@angular/material/card';
     MatInputModule,
     MatToolbarModule,
     NgxPaginationModule,
-    AppRoutingModule,
-    RouterModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,

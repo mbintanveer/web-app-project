@@ -82,21 +82,32 @@ REST_FRAMEWORK = {
 
 ACCOUNT_UNIQUE_EMAIL=True
 
+#   - DB_HOST=mysqldatabase
+#       - DB_NAME=hms-django
+#       - DB_USER=root
+#       - DB_PASSWORD=amt411
+#       - DB_PORT=3306
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': os.environ.get('DB_NAME', 'hms-django'),
+        # 'USER': os.environ.get('DB_USER', 'root'),
+        # 'PASSWORD': os.environ.get('DB_PASSWORD', 'amt411'),
+        # 'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
+        # 'PORT': os.environ.get('DB_PORT', '3306'),
         'NAME': os.environ.get('DB_NAME', 'mydbname'),
         'USER': os.environ.get('DB_USER', 'mydbuser'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'mydbpassword'),
         'HOST': os.environ.get('DB_HOST', 'db'),
         'PORT': os.environ.get('DB_PORT', '3306'),
-        
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-        },
+        # 'OPTIONS': {
+        #     'charset': 'utf8mb4',
+        # },
     }
 }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

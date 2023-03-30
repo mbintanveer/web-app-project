@@ -7,106 +7,16 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser 
 from rest_framework import status
-from .serializers import  AppointmentSerializer, DemoSerializer, DepartmentSerializer, GetAppointmentSerializer,  MedicinesSerializer, PrescriptionSerializer,  SpecializationSerializer
+from .serializers import  AppointmentSerializer,  DepartmentSerializer, GetAppointmentSerializer,  MedicinesSerializer, PrescriptionSerializer
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from django.http import HttpResponse
 from UserSystem.models import Patient
-
-from .models import Appointment, Demo,  Department, Medicines, Prescription, Specialization
+from .models import Appointment,   Department, Prescription
 from itertools import chain
 from operator import attrgetter
 
-#Specialization
 
-@api_view(['GET', 'POST']) #Post for new
-def specializations_list(request):
-    if request.method == 'GET':
-        specialization = Specialization.objects.all()
-        specialization_name_keyword = request.GET.get('specialization_name_keyword', None)
-        if specialization_name_keyword is not None:
-            specialization = specialization.filter(specialization_name__icontains=specialization_name_keyword)
-        
-        specialization_serializer = SpecializationSerializer(specialization, many=True)
-        return JsonResponse(specialization_serializer.data, safe=False)
-
-    elif request.method == 'POST':
-        specialization_data = JSONParser().parse(request)
-        specialization_serializer = SpecializationSerializer(data=specialization_data)
-        if specialization_serializer.is_valid():
-            specialization_serializer.save()
-            return JsonResponse(specialization_serializer.data, status=status.HTTP_201_CREATED) 
-        return JsonResponse(specialization_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-  
-@api_view(['GET','PUT','DELETE'])
-def specializations_detail(request, pk):  
-    try: 
-        specialization = Specialization.objects.get(pk=pk) 
-    except Specialization.DoesNotExist: 
-        return JsonResponse({'message': 'The Specialization does not exist'}, status=status.HTTP_404_NOT_FOUND) 
-    
-    if request.method == 'GET': 
-        specialization_serializer = SpecializationSerializer(specialization) 
-        return JsonResponse(specialization_serializer.data) 
-
-    elif request.method == 'PUT': 
-        specialization_data = JSONParser().parse(request) 
-        specialization_serializer = SpecializationSerializer(specialization, data=specialization_data) 
-        if specialization_serializer.is_valid(): 
-            specialization_serializer.save() 
-            return JsonResponse(specialization_serializer.data) 
-        return JsonResponse(specialization_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
-
-    elif request.method == 'DELETE': 
-        specialization.delete() 
-        return JsonResponse({'message': 'Specialization was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
-
-#DEMO
-@api_view(['GET', 'POST']) #Post for new
-def demos_list(request):
-    if request.method == 'GET':
-        demo = Demo.objects.all()
-        demo_name_keyword = request.GET.get('demo_name_keyword', None)
-        if demo_name_keyword is not None:
-            demo = demo.filter(demo_name__icontains=demo_name_keyword)
-        
-        demo_serializer = DemoSerializer(demo, many=True)
-        return JsonResponse(demo_serializer.data, safe=False)
-
-    elif request.method == 'POST':
-        demo_data = JSONParser().parse(request)
-        demo_serializer = DemoSerializer(data=demo_data)
-        if demo_serializer.is_valid():
-            demo_serializer.save()
-            return JsonResponse(demo_serializer.data, status=status.HTTP_201_CREATED) 
-        return JsonResponse(demo_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-  
-@api_view(['GET','PUT','DELETE'])
-def demos_detail(request, pk):  
-    try: 
-        demo = Demo.objects.get(pk=pk) 
-    except Demo.DoesNotExist: 
-        return JsonResponse({'message': 'The Demo does not exist'}, status=status.HTTP_404_NOT_FOUND) 
-    
-    if request.method == 'GET': 
-        demo_serializer = DemoSerializer(demo) 
-        return JsonResponse(demo_serializer.data) 
-
-    elif request.method == 'PUT': 
-        demo_data = JSONParser().parse(request) 
-        demo_serializer = DemoSerializer(demo, data=demo_data) 
-        if demo_serializer.is_valid(): 
-            demo_serializer.save() 
-            return JsonResponse(demo_serializer.data) 
-        return JsonResponse(demo_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
-
-    elif request.method == 'DELETE': 
-        demo.delete() 
-        return JsonResponse({'message': 'Demo was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
-
- 
 
 #Department
 
@@ -237,49 +147,7 @@ def appointmentsByPatient(request, pk):
         return JsonResponse(appointment_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-#Medicines
-
-@api_view(['GET', 'POST']) #Post for new
-def medicines_list(request):
-    if request.method == 'GET':
-        medicine = Medicines.objects.all()
-        medicine_name_keyword = request.GET.get('medicine_name_keyword', None)
-        if medicine_name_keyword is not None:
-            medicine = medicine.filter(medicine_name__icontains=medicine_name_keyword)
-        medicine_serializer = MedicinesSerializer(medicine, many=True)
-        return JsonResponse(medicine_serializer.data, safe=False)
-
-    elif request.method == 'POST':
-        medicine_data = JSONParser().parse(request)
-        medicine_serializer = MedicinesSerializer(data=medicine_data)
-        if medicine_serializer.is_valid():
-            medicine_serializer.save()
-            return JsonResponse(medicine_serializer.data, status=status.HTTP_201_CREATED) 
-        return JsonResponse(medicine_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-  
-@api_view(['GET','PUT','DELETE'])
-def medicines_detail(request, pk):  
-    try: 
-        medicine = Medicines.objects.get(pk=pk) 
-    except Medicines.DoesNotExist: 
-        return JsonResponse({'message': 'The Medicine does not exist'}, status=status.HTTP_404_NOT_FOUND) 
-    
-    if request.method == 'GET': 
-        medicine_serializer = MedicinesSerializer(medicine) 
-        return JsonResponse(medicine_serializer.data) 
-
-    elif request.method == 'PUT': 
-        medicine_data = JSONParser().parse(request) 
-        medicine_serializer = MedicinesSerializer(medicine, data=medicine_data) 
-        if medicine_serializer.is_valid(): 
-            medicine_serializer.save() 
-            return JsonResponse(medicine_serializer.data) 
-        return JsonResponse(medicine_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
-
-    elif request.method == 'DELETE': 
-        medicine.delete() 
-        return JsonResponse({'message': 'Medicine was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+ 
 
 #Prescriptions
 

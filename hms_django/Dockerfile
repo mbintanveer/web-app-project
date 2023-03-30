@@ -1,8 +1,11 @@
-FROM python:3.7-slim-buster
+FROM python:3.7
 
 # RUN apt-get update && apt-get install -y pkg-config
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV DB_HOST db
+ENV DB_NAME mydbname
+ENV DB_USER mydbuser
+ENV DB_PASSWORD mydbpassword
+ENV DB_PORT 3306
 
 #
 RUN apt-get update \
@@ -18,9 +21,13 @@ WORKDIR /app
 COPY ./requirements.txt /app/
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 COPY entrypoint.sh /entrypoint.sh
+
+# RUN chmod +x app/entrypoint.sh
+
+# ENTRYPOINT ["./entrypoint.sh"]
 
 # Copy the current directory contents into the container at /app
 COPY . /app/

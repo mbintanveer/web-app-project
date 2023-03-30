@@ -7,19 +7,7 @@ from datetime import timedelta
 from django.db.models import Sum
 from UserSystem.models import Doctor, Patient
 from rest_framework import serializers
-class Specialization(models.Model):
-    specialization_id = models.AutoField(primary_key=True)
-    specialization_desc = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.specialization_desc
-
-class Demo(models.Model):
-    demo_id = models.AutoField(primary_key=True)
-    demo_desc = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.demo_desc
+from django.utils import timezone
 
 
 
@@ -34,19 +22,17 @@ class Department(models.Model):
 class Appointment(models.Model):
     appointment_id = models.AutoField(primary_key=True)
     patient=models.ForeignKey(Patient,on_delete=models.CASCADE,related_name='patient')
+    # date = models.DateField(default=timezone.now().date)
+    # time = models.TimeField(default='09:00')
+    #date = models.DateField()
+    #time = models.TimeField()
+    #date=models.ForeignKey(Date,on_delete=models.CASCADE,related_name='date')
+    #time=models.ForeignKey(Time,on_delete=models.CASCADE,related_name='time')
     doctor = models.ForeignKey(Doctor,on_delete=models.CASCADE,related_name='doctor')
     description=models.CharField(max_length=255)
    
     def __str__(self):
          return self.description + " - "  + self.patient.user.name + " - Dr. " + self.doctor.user.name
-
-class Medicines(models.Model):
-    medicines_id=models.AutoField(primary_key=True)
-    medicines_qty = models.IntegerField()
-    medicines_name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.medicines_name + " - " + str(self.medicines_qty)
 
 
 class Prescription(models.Model):
@@ -54,7 +40,6 @@ class Prescription(models.Model):
     # patient = models.ForeignKey(Patient,on_delete=models.CASCADE)
     appointment = models.ForeignKey(Appointment,on_delete=models.CASCADE)
     # doctor = models.ForeignKey(Doctor,on_delete=models.CASCADE)
-    medicines = models.ForeignKey(Medicines, on_delete=models.CASCADE)
 
     def __str__(self):
         return "To be set"

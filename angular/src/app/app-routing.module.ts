@@ -4,6 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppointmentsListComponent } from './components/appointments-list/appointments-list.component';
 import { AppointmentsDetailsComponent } from './components/appointments-details/appointments-details.component';
 import { AddAppointmentsComponent } from './components/add-appointments/add-appointments.component';
+//
+
+import { PrescriptionsListComponent } from './components/prescriptions-list/prescriptions-list.component';
+// import { PrescriptionsDetailsComponent } from './components/prescriptions-details/prescriptions-details.component';
+// import { AddPrescriptionsComponent } from './components/add-prescriptions/add-prescriptions.component';
+
 
 import { DoctorsListComponent } from './components/doctors-list/doctors-list.component';
 import { DoctorsDetailsComponent } from './components/doctors-details/doctors-details.component';
@@ -20,6 +26,13 @@ const routes: Routes = [
   { path: 'Appointments', component: AppointmentsListComponent,canActivate: [AuthGuard] },
   { path: 'Appointments/:id', component: AppointmentsDetailsComponent, canActivate: [AuthGuard] },
   { path: 'Add-Appointment', component: AddAppointmentsComponent, canActivate: [AuthGuard] },
+///
+
+{ path: 'Prescriptions', component: PrescriptionsListComponent,canActivate: [AuthGuard] },
+// { path: 'Prescriptions/:id', component: PrescriptionsDetailsComponent, canActivate: [AuthGuard] },
+{ path: 'Prescriptions/:id', component: PrescriptionsListComponent },
+// { path: 'Add-Prescription', component: AddPrescriptionsComponent, canActivate: [AuthGuard] },
+// //
 
   //Doctors
   { path: 'Doctors', component: DoctorsListComponent, canActivate: [AuthGuard] },
