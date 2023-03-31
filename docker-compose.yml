@@ -13,15 +13,26 @@ services:
       - ./db_data:/var/lib/mysql
     ports:
       - "3306:3306"
-    restart: always
+
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "db"]
       interval: 10s
       timeout: 5s
       retries: 3
- 
+  
+  angular-frontend:
+    build:
+      context: ./angular
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - /app/node_modules
+      - ./angular:/app
+
   django-backend:
-    build: ./hms_django
+    build:
+      context: ./hms_django
     # command: /entrypoint.sh
     ports:
       - "8000:8000"
@@ -37,14 +48,9 @@ services:
       - DB_PORT=3306
     depends_on:
       - db
-  angular-frontend:
-    build:
-      context: ./angular
-      dockerfile: Dockerfile
-    ports:
-      - "4200:4200"
-    volumes:
-      - /app/node_modules
-      - ./angular:/app
+      - angular-frontend
+    links:
+      - db
 
+  
 

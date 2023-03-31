@@ -20,7 +20,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['username']
 
     def __str__(self):
-        return self.name 
+        return self.name
 
 @receiver(post_save,sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender,instance=None,created=False, **kwargs):
@@ -44,7 +44,6 @@ class Patient(models.Model):
     phone=models.IntegerField(blank=True,null=True)
     age=models.IntegerField(blank=True,null=True)
     gender=models.CharField(max_length=255,blank=True)
-
 
     def __str__(self):
         return self.user.name

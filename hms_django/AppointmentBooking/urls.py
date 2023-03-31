@@ -16,7 +16,6 @@ url(r'^api/Appointments/(?P<pk>[0-9]+)$', views.appointments_detail),
 url(r'^api/AppointmentsByPatient/(?P<pk>[0-9]+)$', views.appointmentsByPatient),
 
 
-
 #Prescription
 url(r'^api/Prescriptions$', views.prescriptions_list),
 url(r'^api/Prescriptions/(?P<pk>[0-9]+)$', views.prescriptions_detail),
