@@ -16,7 +16,11 @@
                   {{doctor.user}}
                 </option>
             </select>
-
+            <div class="form-group">
+                <label for="appointment_time">Appointment Time</label> <br>
+                <input type="datetime-local" id="appointment_time" required [(ngModel)]="appointment.appointment_time" name="appointment_time">
+              </div>
+              
             <div class="form-group">
                 <label for="description">Description</label> <br>
                 <input type="text" id="description" required [(ngModel)]="appointment.description" name="description">

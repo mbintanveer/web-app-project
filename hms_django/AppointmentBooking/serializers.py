@@ -27,11 +27,12 @@ class DepartmentSerializer(serializers.ModelSerializer):
     'department_name',
     'department_location' )
 
-
-class AppointmentSerializer(serializers.ModelSerializer):
+#THIS IS NOT MAIN GETTING SERIALIZER.
+class PostAppointmentSerializer(serializers.ModelSerializer):
     
     # patient = serializers.StringRelatedField(many=False)
     # doctor = serializers.StringRelatedField(many=False)
+    appointment_time = serializers.DateTimeField(input_formats=['%Y-%m-%dT%H:%M'])
 
     class Meta:
         model = Appointment
@@ -39,20 +40,21 @@ class AppointmentSerializer(serializers.ModelSerializer):
                 'patient',
                 'doctor',
                 'description',
-                'date',
-                'time'
+                'appointment_time'
                 )
 
 class GetAppointmentSerializer(serializers.ModelSerializer):
     
     patient = serializers.StringRelatedField(many=False)
     doctor = serializers.StringRelatedField(many=False)
+    # appointment_time = serializers.DateTimeField(input_formats=['%Y-%m-%dT%H:%M'])
 
     class Meta:
         model = Appointment
         fields = ('appointment_id',
                 'patient',
                 'doctor',
-                'description'
+                'description',
+                'appointment_time'
                 )
 

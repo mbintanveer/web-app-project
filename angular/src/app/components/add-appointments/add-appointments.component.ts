@@ -58,8 +58,10 @@ export class AddAppointmentsComponent implements OnInit {
       
       description: this.appointment.description,
       doctor:this.appointment.doctor,
-      patient: ""+userData.user_id
+      patient: ""+userData.user_id,
       // patient: 3
+      appointment_time: this.appointment.appointment_time // add appointment_time field here
+
     };
     
     this.appointmentService.create(data)

@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser 
 from rest_framework import status
-from .serializers import  AppointmentSerializer,  DepartmentSerializer, GetAppointmentSerializer,  MedicinesSerializer, PrescriptionSerializer
+from .serializers import  PostAppointmentSerializer,  DepartmentSerializer, GetAppointmentSerializer,  MedicinesSerializer, PrescriptionSerializer
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from django.http import HttpResponse
@@ -86,13 +86,9 @@ def appointments_list(request):
             appointment_data['patient']=patient.pk
         except Patient.DoesNotExist: 
             return JsonResponse({'message': 'The tutorial does not exist'}, status=status.HTTP_404_NOT_FOUND) 
-    
-  
         print(appointment_data)
-
-        appointment_serializer = AppointmentSerializer(data=appointment_data)
+        appointment_serializer = PostAppointmentSerializer(data=appointment_data)
         # patient_id = appointment_serializer.
-        
         if appointment_serializer.is_valid():
             appointment_serializer.save()
             return JsonResponse(appointment_serializer.data, status=status.HTTP_201_CREATED) 
