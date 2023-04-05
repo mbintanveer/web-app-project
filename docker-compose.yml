@@ -29,7 +29,7 @@ services:
     volumes:
       - /app/node_modules
       - ./angular:/app
-
+    
   django-backend:
     build:
       context: ./hms_django

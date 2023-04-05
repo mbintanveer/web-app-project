@@ -11,7 +11,7 @@ import { PrescriptionService } from 'src/app/services/prescription.service';
 
 export class PrescriptionsListComponent implements OnInit {
 
-  prescription?: any;
+  prescriptions?: any;
   prescription_type = '';
   currentPrescription: Prescription = {};
   currentIndex = -1;
@@ -37,7 +37,7 @@ export class PrescriptionsListComponent implements OnInit {
     
       .subscribe(
         data => {
-          this.prescription = data;
+          this.prescriptions = data;
           console.log(data);
         },
         error => {
@@ -62,19 +62,19 @@ export class PrescriptionsListComponent implements OnInit {
     this.retrievePrescriptions();
   } 
 
-  setActiveAppointment(prescription: Prescription, index: number): void {
+  setActivePrescription(prescription: Prescription, index: number): void {
     this.currentPrescription =prescription;
     this.currentIndex = index;
   }
 
-  searchPrescription(): void {
+  searchPrescriptions(): void {
     this.currentPrescription = {};
     this.currentIndex = -1;
 
     this.prescriptionService.findByPrescriptionType(this.prescription_type)
       .subscribe(
         data => {
-          this.prescription = data;
+          this.prescriptions = data;
           this.page=1
           console.log(data);
         },

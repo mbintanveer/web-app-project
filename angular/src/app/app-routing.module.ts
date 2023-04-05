@@ -5,6 +5,8 @@ import { AppointmentsListComponent } from './components/appointments-list/appoin
 import { AppointmentsDetailsComponent } from './components/appointments-details/appointments-details.component';
 import { AddAppointmentsComponent } from './components/add-appointments/add-appointments.component';
 //
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+
 
 import { PrescriptionsListComponent } from './components/prescriptions-list/prescriptions-list.component';
 // import { PrescriptionsDetailsComponent } from './components/prescriptions-details/prescriptions-details.component';
@@ -18,6 +20,7 @@ import { DoctorsDetailsComponent } from './components/doctors-details/doctors-de
 import { UserLoginComponent } from "./components/user-login/user-login.component";
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AuthGuard } from "./components/user-login/auth.guard";
+import { MedicalHistoryComponent } from './components/medical-history/medical-history.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: 'Clients', pathMatch: 'full' },
@@ -41,9 +44,11 @@ const routes: Routes = [
   //Login
   { path: 'login', component: UserLoginComponent },
   { path: 'user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard] },
-
+  {path: 'MedicalHistory', component: MedicalHistoryComponent },
+  {path: 'EditProfile', component: EditProfileComponent },
+  
   //Other Redirect
-  { path: '**', redirectTo: '' }
+  // { path: '**', redirectTo: '' },
 
 ];
 export const routing = RouterModule.forRoot(routes);

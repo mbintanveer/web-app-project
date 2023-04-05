@@ -5,9 +5,25 @@
     <div id="nav-right">
         <div id="nav-profile">
             <span id="nav-profile-name">
-            Welcome, Patient. 
+           HMS
         </span>
             <img id="nav-profile-picture" src="assets/my.jpeg" alt="Profile Picture">
+            <select id="nav-dropdown-menu" (change)="onNavigate($event)">
+            <option value="" disabled selected>Select an option</option>
+            <option value="/MedicalHistory" routerLink="/MedicalHistory">MedicalHistory</option>
+            <option value="/EditProfile" routerLink="/EditProfile">Edit Profile</option>
+            <option value="/contact" routerLink="/contact">Logout</option>
+        </select>
+              
+              
         </div>
+        <!-- <div id="nav-dropdown">
+            <select id="nav-dropdown-menu">
+                <option value="">Menu</option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+            </select>
+        </div> -->
     </div>
 </nav>
