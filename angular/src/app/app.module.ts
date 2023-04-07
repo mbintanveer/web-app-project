@@ -16,7 +16,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DoctorsListComponent } from './components/doctors-list/doctors-list.component';
 import { AddAppointmentsComponent } from './components/add-appointments/add-appointments.component';
 import { AppointmentsDetailsComponent } from './components/appointments-details/appointments-details.component';
-import { AppointmentsListComponent } from './components/appointments-list/appointments-list.component';
+import { PatientAppointmentsListComponent } from './components/patient-appointments-list/appointments-list.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -27,7 +27,7 @@ import { MatInputModule } from '@angular/material/input';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { MatCardModule } from '@angular/material/card';
 import { PrescriptionsListComponent } from './components/prescriptions-list/prescriptions-list.component';
-
+import { DoctorAppointmentsListComponent } from './components/doctor-appointments-list/appointments-list.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import { PrescriptionsListComponent } from './components/prescriptions-list/pres
     DoctorsListComponent,
     AddAppointmentsComponent,
     AppointmentsDetailsComponent,
-    AppointmentsListComponent,
+    PatientAppointmentsListComponent,
+    DoctorAppointmentsListComponent,
     PrescriptionsListComponent,
     UserLoginComponent,
     UserProfileComponent,

@@ -9,7 +9,7 @@ import { AppointmentService } from 'src/app/services/patient-appointment.service
 })
 
 
-export class AppointmentsListComponent implements OnInit {
+export class PatientAppointmentsListComponent implements OnInit {
 
   appointments?: any;
   appointment_type = '';

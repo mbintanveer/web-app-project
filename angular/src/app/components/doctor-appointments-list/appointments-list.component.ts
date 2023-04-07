@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Appointment } from 'src/app/models/appointment.model';
-import { AppointmentService } from 'src/app/services/patient-appointment.service';
+import { AppointmentService } from 'src/app/services/doctor-appointment.service';
 
 @Component({
   selector: 'app-appointment-list',
@@ -9,7 +9,7 @@ import { AppointmentService } from 'src/app/services/patient-appointment.service
 })
 
 
-export class AppointmentsListComponent implements OnInit {
+export class DoctorAppointmentsListComponent implements OnInit {
 
   appointments?: any;
   appointment_type = '';
