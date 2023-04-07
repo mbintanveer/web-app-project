@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 import { AppointmentsListComponent } from './components/appointments-list/appointments-list.component';
 import { AppointmentsDetailsComponent } from './components/appointments-details/appointments-details.component';
 import { AddAppointmentsComponent } from './components/add-appointments/add-appointments.component';
@@ -31,9 +31,9 @@ const routes: Routes = [
   { path: 'Add-Appointment', component: AddAppointmentsComponent, canActivate: [AuthGuard] },
 ///
 
-{ path: 'Prescriptions', component: PrescriptionsListComponent,canActivate: [AuthGuard] },
+  { path: 'Prescriptions', component: PrescriptionsListComponent ,canActivate: [AuthGuard] },
 // { path: 'Prescriptions/:id', component: PrescriptionsDetailsComponent, canActivate: [AuthGuard] },
-{ path: 'Prescriptions/:id', component: PrescriptionsListComponent },
+  // {path: 'Prescriptions/:id', component: AppointmentssListComponent  },
 // { path: 'Add-Prescription', component: AddPrescriptionsComponent, canActivate: [AuthGuard] },
 // //
 

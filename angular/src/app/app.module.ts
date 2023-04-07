@@ -26,6 +26,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { MatCardModule } from '@angular/material/card';
+import { PrescriptionsListComponent } from './components/prescriptions-list/prescriptions-list.component';
 
 
 @NgModule({
@@ -37,17 +38,20 @@ import { MatCardModule } from '@angular/material/card';
     AddAppointmentsComponent,
     AppointmentsDetailsComponent,
     AppointmentsListComponent,
+    PrescriptionsListComponent,
     UserLoginComponent,
     UserProfileComponent,
   ],
 
   exports: [
     NavbarComponent,
+    NgxPaginationModule ,
   ],
 
   imports: [
     AppRoutingModule,
     RouterModule,
+    NgxPaginationModule,
     MatToolbarModule, 
     MatButtonModule,
     MatSidenavModule,
@@ -57,7 +61,6 @@ import { MatCardModule } from '@angular/material/card';
     MatStepperModule,
     MatInputModule,
     MatToolbarModule,
-    NgxPaginationModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,

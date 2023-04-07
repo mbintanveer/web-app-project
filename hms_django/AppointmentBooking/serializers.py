@@ -43,7 +43,7 @@ class PostAppointmentSerializer(serializers.ModelSerializer):
                 'appointment_time'
                 )
 
-class GetAppointmentSerializer(serializers.ModelSerializer):
+class GetAppointmentByPatientSerializer(serializers.ModelSerializer):
     
     patient = serializers.StringRelatedField(many=False)
     doctor = serializers.StringRelatedField(many=False)
@@ -57,7 +57,21 @@ class GetAppointmentSerializer(serializers.ModelSerializer):
                 'description',
                 'appointment_time'
                 )
+        
+class GetAppointmentByDoctorSerializer(serializers.ModelSerializer):
+    
+    patient = serializers.StringRelatedField(many=False)
+    doctor = serializers.StringRelatedField(many=False)
+    # appointment_time = serializers.DateTimeField(input_formats=['%Y-%m-%dT%H:%M'])
 
+    class Meta:
+        model = Appointment
+        fields = ('appointment_id',
+                'patient',
+                'doctor',
+                'description',
+                'appointment_time'
+                )
 
 class GetPrescriptionSerializer(serializers.ModelSerializer):
     

@@ -29,7 +29,10 @@ services:
     volumes:
       - /app/node_modules
       - ./angular:/app
-    
+    depends_on:
+      - db
+      - django-backend
+
   django-backend:
     build:
       context: ./hms_django
@@ -48,7 +51,7 @@ services:
       - DB_PORT=3306
     depends_on:
       - db
-      - angular-frontend
+
     links:
       - db
 

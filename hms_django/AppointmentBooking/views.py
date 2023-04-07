@@ -7,11 +7,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser 
 from rest_framework import status
-from .serializers import  GetPrescriptionSerializer, PostAppointmentSerializer,  DepartmentSerializer, GetAppointmentSerializer,  MedicinesSerializer, PrescriptionSerializer
+
+
+from .serializers import  GetPrescriptionSerializer, PostAppointmentSerializer,  DepartmentSerializer, GetAppointmentByPatientSerializer, GetAppointmentByDoctorSerializer, MedicinesSerializer, PrescriptionSerializer
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from django.http import HttpResponse
-from UserSystem.models import Patient
+from UserSystem.models import Patient, Doctor
 from .models import Appointment,   Department, Prescription
 from itertools import chain
 from operator import attrgetter
@@ -128,13 +130,33 @@ def appointmentsByPatient(request, pk):
         if appointment_name_keyword is not None:
             appointment = appointment.filter(appointment_name__icontains=appointment_name_keyword)
         
-        appointment_serializer = GetAppointmentSerializer(appointment, many=True)
+        appointment_serializer = GetAppointmentByPatientSerializer(appointment, many=True)
         return JsonResponse(appointment_serializer.data, safe=False)
        
-        
     elif request.method == 'POST':
         appointment_data = JSONParser().parse(request)
-        appointment_serializer = AppointmentSerializer(data=appointment_data)
+        appointment_serializer = GetAppointmentByPatientSerializer(data=appointment_data)
+        if appointment_serializer.is_valid():
+            appointment_serializer.save()
+            return JsonResponse(appointment_serializer.data, status=status.HTTP_201_CREATED) 
+        return JsonResponse(appointment_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET','PUT','DELETE'])
+def appointmentsByDoctor(request, pk):  
+    if request.method == 'GET':
+        doctor = Doctor.objects.get(user=pk) 
+        doctor=Doctor.objects.get(pk=doctor.pk)
+        appointment = Appointment.objects.filter(doctor=doctor)
+        appointment_name_keyword = request.GET.get('appointment_name_keyword', None)
+        if appointment_name_keyword is not None:
+            appointment = appointment.filter(appointment_name__icontains=appointment_name_keyword)
+        
+        appointment_serializer = GetAppointmentByDoctorSerializer(appointment, many=True)
+        return JsonResponse(appointment_serializer.data, safe=False)
+       
+    elif request.method == 'POST':
+        appointment_data = JSONParser().parse(request)
+        appointment_serializer = GetAppointmentByDoctorSerializer(data=appointment_data)
         if appointment_serializer.is_valid():
             appointment_serializer.save()
             return JsonResponse(appointment_serializer.data, status=status.HTTP_201_CREATED) 

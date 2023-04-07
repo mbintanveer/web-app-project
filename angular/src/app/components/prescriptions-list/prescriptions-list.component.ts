@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Prescription } from 'src/app/models/prescription.model';
 import { PrescriptionService } from 'src/app/services/prescription.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-prescription-list',

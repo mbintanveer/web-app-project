@@ -1,20 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { PrescriptionsListComponent } from './prescriptions-list.component';
 
-import { AppointmentsListComponent } from './appointments-list.component';
-
-describe('AppointmentsListComponent', () => {
-  let component: AppointmentsListComponent;
-  let fixture: ComponentFixture<AppointmentsListComponent>;
+describe('PrescriptionsListComponent', () => {
+  let component: PrescriptionsListComponent;
+  let fixture: ComponentFixture<PrescriptionsListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AppointmentsListComponent ]
+      declarations: [ PrescriptionsListComponent ],
+      imports: [ NgxPaginationModule ],
+    
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AppointmentsListComponent);
+    fixture = TestBed.createComponent(PrescriptionsListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
