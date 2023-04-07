@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Appointment } from 'src/app/models/appointment.model';
 import { Prescription } from 'src/app/models/prescription.model';
-import { PrescriptionService } from 'src/app/services/patient-prescription.service';
-import { NgxPaginationModule } from 'ngx-pagination';
+import { DoctorPrescriptionService } from 'src/app/services/doctor-prescription.service';
 
 @Component({
   selector: 'app-prescription-list',
@@ -10,7 +10,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 })
 
 
-export class PrescriptionsListComponent implements OnInit {
+export class DoctorPrescriptionsListComponent implements OnInit {
 
   prescriptions?: any;
   prescription_type = '';
@@ -21,7 +21,7 @@ export class PrescriptionsListComponent implements OnInit {
   count = 0;
   tableSize = 10;
 
-  constructor(private prescriptionService: PrescriptionService) { 
+  constructor(private prescriptionService: DoctorPrescriptionService) { 
 }
 
   ngOnInit(): void {

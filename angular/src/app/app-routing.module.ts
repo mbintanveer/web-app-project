@@ -21,6 +21,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { AuthGuard } from "./components/user-login/auth.guard";
 import { MedicalHistoryComponent } from './components/medical-history/medical-history.component';
 import { DoctorAppointmentsListComponent } from './components/doctor-appointments-list/appointments-list.component';
+import { DoctorPrescriptionsListComponent } from './components/doctor-prescriptions-list/prescriptions-list.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: 'Clients', pathMatch: 'full' },
@@ -31,8 +32,7 @@ const routes: Routes = [
   { path: 'Add-Appointment', component: AddAppointmentsComponent, canActivate: [AuthGuard] },
   { path: 'Doctor-Appointments', component: DoctorAppointmentsListComponent,canActivate: [AuthGuard] },
   { path: 'Patient-Prescriptions', component: PrescriptionsListComponent ,canActivate: [AuthGuard] },
-// { path: 'Prescriptions/:id', component: PrescriptionsDetailsComponent, canActivate: [AuthGuard] },
-  // {path: 'Prescriptions/:id', component: AppointmentssListComponent  },
+  { path: 'Doctor-Prescriptions', component: DoctorPrescriptionsListComponent,canActivate: [AuthGuard] }, 
 // { path: 'Add-Prescription', component: AddPrescriptionsComponent, canActivate: [AuthGuard] },
   //Doctors
   // { path: 'Doctors', component: DoctorsListComponent, canActivate: [AuthGuard] },

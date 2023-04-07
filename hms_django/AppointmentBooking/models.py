@@ -34,7 +34,7 @@ class Prescription(models.Model):
     prescription_id=models.AutoField(primary_key=True)
     patient = models.ForeignKey(Patient,on_delete=models.CASCADE, null=True)
     appointment_id = models.ForeignKey(Appointment,on_delete=models.CASCADE)
-    # doctor = models.ForeignKey(Doctor,on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Doctor,on_delete=models.CASCADE, null=True)
     description = models.CharField(max_length=255)
 
     def __str__(self):
