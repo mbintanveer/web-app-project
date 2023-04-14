@@ -9,8 +9,7 @@ class PatientSignupSerializer(serializers.ModelSerializer):
     password2=serializers.CharField(style={"input_type":"password"}, write_only=True)
     class Meta:
         model=User
-        fields=['username','email','password','password2','name',
-                ]
+        fields=['username','email','password','password2','name','address','phone','age','gender']
         extra_kwargs={
             'password': {'write_only':True}
         }
@@ -20,11 +19,15 @@ class PatientSignupSerializer(serializers.ModelSerializer):
 
     def save(self, **kwargs):
         user= User(
-            username=self.validated_data['username'],
-            email=self.validated_data['email'],
-            name=self.validated_data['name']
-            
-        )
+                username=self.validated_data['username'],
+                email=self.validated_data['email'],
+                name=self.validated_data['name'],
+                address=self.validated_data['address'],
+                phone=self.validated_data['phone'],
+                age=self.validated_data['age'],
+                gender=self.validated_data['gender']
+            )
+        
         password=self.validated_data['password']
         password2=self.validated_data['password2']
 
@@ -34,26 +37,16 @@ class PatientSignupSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.is_patient=True
         user.save()
-        # address= self.validated_data['address']
-        # phone= self.validated_data['phone']
-        # age= self.validated_data['age']
-        # gender= self.validated_data['gender']
-
+        
         Patient.objects.create(user=user)
-        # patient = Patient.objects.create(
-        # user=user,
-        # address=self.validated_data['address'],
-        # phone=self.validated_data['phone'],
-        # age=self.validated_data['age'],
-        # gender=self.validated_data['gender']
-        # )
+
         return user
 
 class DoctorSignupSerializer(serializers.ModelSerializer):
     password2=serializers.CharField(style={"input_type":"password"}, write_only=True)
     class Meta:
         model=User
-        fields=['username','email','password','password2','name']
+        fields=['username','email','password','password2','name','address','phone','age','gender']
         extra_kwargs={
             'password': {'write_only':True}
         }
@@ -62,8 +55,11 @@ class DoctorSignupSerializer(serializers.ModelSerializer):
         user= User(
             username=self.validated_data['username'],
             email=self.validated_data['email'],
-            name=self.validated_data['name']
-            
+            name=self.validated_data['name'],
+            address=self.validated_data['address'],
+            phone=self.validated_data['phone'],
+            age=self.validated_data['age'],
+            gender=self.validated_data['gender']
         )
         password=self.validated_data['password']
         password2=self.validated_data['password2']

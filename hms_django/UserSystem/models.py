@@ -15,6 +15,10 @@ class User(AbstractUser):
     username=models.CharField(max_length=255)
     is_doctor=models.BooleanField(default=False)
     is_patient=models.BooleanField(default=False)
+    address=models.CharField(max_length=255,blank=True)
+    phone=models.IntegerField(blank=True,null=True)
+    age=models.IntegerField(blank=True,null=True)
+    gender=models.CharField(max_length=255,blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -29,21 +33,12 @@ def create_auth_token(sender,instance=None,created=False, **kwargs):
 
 class Doctor(models.Model):
     user=models.OneToOneField(User, related_name='user',on_delete=models.CASCADE)
-    address=models.CharField(max_length=255,blank=True)
-    phone=models.IntegerField(blank=True,null=True)
-    age=models.IntegerField(blank=True,null=True)
-    gender=models.CharField(max_length=255,blank=True)
-    #ADD DEPARTMENT
-    
+      
     def __str__(self):
         return self.user.name
         
 class Patient(models.Model):
     user=models.OneToOneField(User, related_name='patient',on_delete=models.CASCADE)
-    address=models.CharField(max_length=255,blank=True)
-    phone=models.IntegerField(blank=True,null=True)
-    age=models.IntegerField(blank=True,null=True)
-    gender=models.CharField(max_length=255,blank=True)
 
     def __str__(self):
         return self.user.name
