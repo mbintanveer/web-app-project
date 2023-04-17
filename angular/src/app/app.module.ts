@@ -29,6 +29,7 @@ import { MatCardModule } from '@angular/material/card';
 import { PrescriptionsListComponent } from './components/prescriptions-list/prescriptions-list.component';
 import { DoctorAppointmentsListComponent } from './components/doctor-appointments-list/appointments-list.component';
 import { DoctorPrescriptionsListComponent } from './components/doctor-prescriptions-list/prescriptions-list.component';
+import { DoctorPatientsListComponent } from './components/doctor-patients-list/patients-list.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { DoctorPrescriptionsListComponent } from './components/doctor-prescripti
     DoctorPrescriptionsListComponent,
     UserLoginComponent,
     UserProfileComponent,
+    DoctorPatientsListComponent
   ],
 
   exports: [
