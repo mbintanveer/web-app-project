@@ -180,26 +180,28 @@ def prescriptionsByDoctor(request, pk):
             return JsonResponse(prescription_serializer.data, status=status.HTTP_201_CREATED) 
         return JsonResponse(prescription_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
  
-# @api_view(['GET','PUT','DELETE'])
-# def patientsByDoctor(request, pk):  
-#     if request.method == 'GET':
-#         doctor = Doctor.objects.get(user=pk) 
-#         doctor=Doctor.objects.get(pk=doctor.pk)
-#         patient = Patient.objects.filter(doctor=doctor)
-#         patient_name_keyword = request.GET.get('patient_name_keyword', None)
-#         if patient_name_keyword is not None:
-#             patient = patient.filter(patient_name__icontains=patient_name_keyword)
+#PaientsByDoctor---
+
+@api_view(['GET','PUT','DELETE'])
+def patientsByDoctor(request, pk):  
+    if request.method == 'GET':
+        doctor = Doctor.objects.get(user=pk) 
+        doctor=Doctor.objects.get(pk=doctor.pk)
+        appointment = Appointment.objects.filter(doctor=doctor)
+        appointment_name_keyword = request.GET.get('appointment_name_keyword', None)
+        if appointment_name_keyword is not None:
+            appointment = appointment.filter(appointment_name__icontains=appointment_name_keyword)
         
-#         patient_serializer = GetPatientByDoctorSerializer(patient, many=True)
-#         return JsonResponse(patient_serializer.data, safe=False)
+        appointment_serializer = GetAppointmentByDoctorSerializer(appointment, many=True)
+        return JsonResponse(appointment_serializer.data, safe=False)
        
-#     elif request.method == 'POST':
-#         patient_data = JSONParser().parse(request)
-#         patient_serializer = GetPatientByDoctorSerializer(data=patient_data)
-#         if patient_serializer.is_valid():
-#             patient_serializer.save()
-#             return JsonResponse(patient_serializer.data, status=status.HTTP_201_CREATED) 
-#         return JsonResponse(patient_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'POST':
+        patient_data = JSONParser().parse(request)
+        patient_serializer = GetPatientByDoctorSerializer(data=patient_data)
+        if patient_serializer.is_valid():
+            patient_serializer.save()
+            return JsonResponse(patient_serializer.data, status=status.HTTP_201_CREATED) 
+        return JsonResponse(patient_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 #Prescriptions

@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
-
-from .models import  Prescription,Department,Appointment
+from .models import  Prescription,Department,Appointment,Patient
 
 
 class PrescriptionSerializer(serializers.ModelSerializer):
@@ -85,17 +84,17 @@ class GetPrescriptionByDoctorSerializer(serializers.ModelSerializer):
                 'patient'
                 )
 
-# class GetPatientByDoctorSerializer(serializers.ModelSerializer):
+class GetPatientByDoctorSerializer(serializers.ModelSerializer):
     
-#     patient = serializers.StringRelatedField(many=False)
-#     # appointment_time = serializers.DateTimeField(input_formats=['%Y-%m-%dT%H:%M'])
+    patient = serializers.StringRelatedField(many=False)
+    # appointment_time = serializers.DateTimeField(input_formats=['%Y-%m-%dT%H:%M'])
 
-#     class Meta:
-#         model = Patient
-#         fields = ('appointment_id',
-#                 'description',
-#                 'patient'
-#                 )
+    class Meta:
+        model = Patient
+        fields = ('appointment_id',
+                'description',
+                'patient'
+                )
 
 class GetPrescriptionSerializer(serializers.ModelSerializer):
     

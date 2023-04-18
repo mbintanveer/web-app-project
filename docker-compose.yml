@@ -23,7 +23,7 @@ services:
   angular-frontend:
     build:
       context: ./angular
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
       - "4200:4200"
     volumes:
@@ -50,7 +50,8 @@ services:
       - DB_PASSWORD=mydbpassword
       - DB_PORT=3306
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
     links:
       - db

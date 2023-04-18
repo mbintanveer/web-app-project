@@ -23,7 +23,7 @@ url(r'^api/Prescriptions/(?P<pk>[0-9]+)$', views.prescriptions_detail),
 url(r'^api/PrescriptionsByPatient/(?P<pk>[0-9]+)$', views.prescriptionsByPatient),
 url(r'^api/PrescriptionsByDoctor/(?P<pk>[0-9]+)$', views.prescriptionsByDoctor),
 
-# url(r'^api/PatientsByDoctor/(?P<pk>[0-9]+)$', views.patientsByDoctor),
+url(r'^api/PatientsByDoctor/(?P<pk>[0-9]+)$', views.patientsByDoctor),
 
 path('', views.Clients_Landing, name='Clients_Landing'),
 path('Clients_View/<int:id>/', views.Clients_View, name='Clients_View'),
