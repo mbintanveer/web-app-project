@@ -26,10 +26,14 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { MatCardModule } from '@angular/material/card';
-import { PrescriptionsListComponent } from './components/prescriptions-list/prescriptions-list.component';
+import { PrescriptionsListComponent } from './components/patient-prescriptions-list/prescriptions-list.component';
 import { DoctorAppointmentsListComponent } from './components/doctor-appointments-list/appointments-list.component';
 import { DoctorPrescriptionsListComponent } from './components/doctor-prescriptions-list/prescriptions-list.component';
 import { DoctorPatientsListComponent } from './components/doctor-patients-list/patients-list.component';
+import { DoctorSignupComponent } from './components/doctor-signup/doctor-signup.component';
+import { PatientSignupComponent } from './components/patient-signup/patient-signup.component';
+
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,10 @@ import { DoctorPatientsListComponent } from './components/doctor-patients-list/p
     DoctorPrescriptionsListComponent,
     UserLoginComponent,
     UserProfileComponent,
-    DoctorPatientsListComponent
+    DoctorPatientsListComponent,
+    DoctorSignupComponent,
+    PatientSignupComponent,
+    PrescriptionsListComponent,
   ],
 
   exports: [
@@ -69,7 +76,8 @@ import { DoctorPatientsListComponent } from './components/doctor-patients-list/p
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSnackBarModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },],
   bootstrap: [AppComponent]

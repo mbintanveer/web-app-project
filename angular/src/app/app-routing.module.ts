@@ -5,12 +5,9 @@ import { AppointmentsDetailsComponent } from './components/appointments-details/
 import { AddAppointmentsComponent } from './components/add-appointments/add-appointments.component';
 //
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
-
-
-import { PrescriptionsListComponent } from './components/prescriptions-list/prescriptions-list.component';
+import { PrescriptionsListComponent } from './components/patient-prescriptions-list/prescriptions-list.component';
 // import { PrescriptionsDetailsComponent } from './components/prescriptions-details/prescriptions-details.component';
 // import { AddPrescriptionsComponent } from './components/add-prescriptions/add-prescriptions.component';
-
 
 import { PatientAppointmentsListComponent } from './components/patient-appointments-list/appointments-list.component';
 import { DoctorsDetailsComponent } from './components/doctors-details/doctors-details.component';
@@ -23,6 +20,8 @@ import { MedicalHistoryComponent } from './components/medical-history/medical-hi
 import { DoctorAppointmentsListComponent } from './components/doctor-appointments-list/appointments-list.component';
 import { DoctorPatientsListComponent } from './components/doctor-patients-list/patients-list.component';
 import { DoctorPrescriptionsListComponent } from './components/doctor-prescriptions-list/prescriptions-list.component';
+import { DoctorSignupComponent } from './components/doctor-signup/doctor-signup.component';
+import { PatientSignupComponent } from './components/patient-signup/patient-signup.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: 'Clients', pathMatch: 'full' },
@@ -40,7 +39,11 @@ const routes: Routes = [
   // { path: 'Doctors', component: DoctorsListComponent, canActivate: [AuthGuard] },
   { path: 'Doctors/:id', component: DoctorsDetailsComponent,  },
 
+  //Signup
+  { path: 'doctor-signup', component: DoctorSignupComponent },
+  { path: 'patient-signup', component: PatientSignupComponent },
   //Login
+
   { path: 'login', component: UserLoginComponent },
   { path: 'user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard] },
   {path: 'MedicalHistory', component: MedicalHistoryComponent },
