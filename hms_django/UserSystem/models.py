@@ -19,7 +19,6 @@ class User(AbstractUser):
     phone=models.IntegerField(blank=True,null=True)
     age=models.IntegerField(blank=True,null=True)
     gender=models.CharField(max_length=255,blank=True)
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
@@ -32,14 +31,12 @@ def create_auth_token(sender,instance=None,created=False, **kwargs):
         Token.objects.create(user=instance)
 
 class Doctor(models.Model):
-    user=models.OneToOneField(User, related_name='user',on_delete=models.CASCADE)
-      
+    user=models.OneToOneField(User, related_name='user',on_delete=models.CASCADE)  
     def __str__(self):
         return self.user.name
         
 class Patient(models.Model):
     user=models.OneToOneField(User, related_name='patient',on_delete=models.CASCADE)
-
     def __str__(self):
         return self.user.name
 

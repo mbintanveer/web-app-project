@@ -25,7 +25,10 @@ url(r'^api/PrescriptionsByDoctor/(?P<pk>[0-9]+)$', views.prescriptionsByDoctor),
 
 url(r'^api/PatientsByDoctor/(?P<pk>[0-9]+)$', views.patientsByDoctor),
 
-path('', views.Clients_Landing, name='Clients_Landing'),
+url(r'^api/MedicalHistoryByPatient/(?P<pk>[0-9]+)$', views.MedicalHistoryByPatient),
+
+
+
 path('Clients_View/<int:id>/', views.Clients_View, name='Clients_View'),
 
 ]

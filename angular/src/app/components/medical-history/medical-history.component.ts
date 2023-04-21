@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Appointment } from 'src/app/models/appointment.model';
 import { AppointmentService } from 'src/app/services/patient-appointment.service';
+import { PrescriptionService } from 'src/app/services/patient-prescription.service';
 
 @Component({
   selector: 'app-appointment-list',
@@ -12,6 +13,7 @@ import { AppointmentService } from 'src/app/services/patient-appointment.service
 export class MedicalHistoryComponent implements OnInit {
 
   appointments?: any;
+  prescriptions?: any;
   appointment_type = '';
   currentAppointment: Appointment = {};
   currentIndex = -1;
@@ -20,12 +22,13 @@ export class MedicalHistoryComponent implements OnInit {
   count = 0;
   tableSize = 10;
 
-  constructor(private appointmentService: AppointmentService) { 
+  constructor(private appointmentService: AppointmentService,
+    private prescriptionService: PrescriptionService) { 
 }
 
   ngOnInit(): void {
     this.retrieveAppointments();
-
+    this.retrievePrescriptions();
     
   }
 
@@ -38,6 +41,21 @@ export class MedicalHistoryComponent implements OnInit {
       .subscribe(
         data => {
           this.appointments = data;
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+  retrievePrescriptions(): void {
+    const userData = JSON.parse(localStorage.getItem('userData')|| '{}')
+    console.log(userData.user_id);
+    this.prescriptionService.getAll(userData.user_id)
+    
+      .subscribe(
+        data => {
+          this.prescriptions = data;
           console.log(data);
         },
         error => {

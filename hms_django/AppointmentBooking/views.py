@@ -275,19 +275,13 @@ def prescriptionsByPatient(request, pk):
             return JsonResponse(prescription_serializer.data, status=status.HTTP_201_CREATED) 
         return JsonResponse(prescription_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# Homepage
-def Clients_Landing(request):
-    # # ClientsList = Client.objects.all()
-    # params = {'ClientsList':ClientsList}
-    # return render(request,'Clients_Landing.html',params)
-    return HttpResponse("")
 
 def Clients_View(request):
     return HttpResponse("")
 
 
 @api_view(['GET'])
-def clients_summary(request, pk):  
+def MedicalHistoryByPatient(request, pk):  
     try: 
         client = Client.objects.get(pk=pk) 
     except Client.DoesNotExist: 
