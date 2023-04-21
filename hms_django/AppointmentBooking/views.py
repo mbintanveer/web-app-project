@@ -8,7 +8,7 @@ from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser 
 from rest_framework import status
 
-from .serializers import GetPrescriptionByDoctorSerializer, GetPrescriptionSerializer, PostAppointmentSerializer,  DepartmentSerializer, GetAppointmentByPatientSerializer, GetAppointmentByDoctorSerializer, MedicinesSerializer, PrescriptionSerializer
+from .serializers import GetPatientByDoctorSerializer, GetPrescriptionByDoctorSerializer, GetPrescriptionSerializer, PostAppointmentSerializer,  DepartmentSerializer, GetAppointmentByPatientSerializer, GetAppointmentByDoctorSerializer, MedicinesSerializer, PrescriptionSerializer
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from django.http import HttpResponse
@@ -185,15 +185,20 @@ def prescriptionsByDoctor(request, pk):
 @api_view(['GET','PUT','DELETE'])
 def patientsByDoctor(request, pk):  
     if request.method == 'GET':
+        print("thisapi.")
         doctor = Doctor.objects.get(user=pk) 
         doctor=Doctor.objects.get(pk=doctor.pk)
-        appointment = Appointment.objects.filter(doctor=doctor)
+        doctor_appointments = Appointment.objects.filter(doctor=doctor)
         appointment_name_keyword = request.GET.get('appointment_name_keyword', None)
         if appointment_name_keyword is not None:
-            appointment = appointment.filter(appointment_name__icontains=appointment_name_keyword)
+            # doctor_appointments = doctor_appointments.filter(appointment_name__icontains=appointment_name_keyword)
+            patients = Patient.objects.filter(id__in=doctor_appointments.values_list('patient_id', flat=True))
+            # patients = Patient.objects.filter(appointment__in=doctor_appointments)
+
+        patients = Patient.objects.filter(id__in=doctor_appointments.values_list('patient_id', flat=True))
+        patient_serializer = GetPatientByDoctorSerializer(patients, many=True)
         
-        appointment_serializer = GetAppointmentByDoctorSerializer(appointment, many=True)
-        return JsonResponse(appointment_serializer.data, safe=False)
+        return JsonResponse(patient_serializer.data, safe=False)
        
     elif request.method == 'POST':
         patient_data = JSONParser().parse(request)

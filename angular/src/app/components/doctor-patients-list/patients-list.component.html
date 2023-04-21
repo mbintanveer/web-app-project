@@ -18,10 +18,9 @@
                     <thead>
                         <tr>
                             <td>Serial Nos</td>
-                            <td>Patient</td>
-                            <td>Doctor</td>
-                            <td>Description</td>
-                            <td>Time</td>
+                            <td>Patient name</td>
+                           
+                            <td>View Medical History</td>
                             
                         </tr>
                     </thead>
@@ -33,15 +32,14 @@
                           };
                     let i = index" [class.active]="i == currentIndex">
                             <td>{{(page-1)*10 +i +1}}</td>
-                            <td>{{patient.patient}}</td>
-                            <td>{{patient.doctor}}</td>
-                            <td>{{patient.description}}</td>
+                            <td>{{patient.name}}</td>
+                            
                             <td>
                                 <!-- <a routerLink="/View-Appointments/{{appointment.appointment_id}}">
                                     View
                                 </a> | -->
                                 <a routerLink="/Patients/{{patient.patient_id}}">
-                                    Edit
+                                    View
                                 </a>
                             </td>
                         </tr>

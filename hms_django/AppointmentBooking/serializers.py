@@ -86,14 +86,16 @@ class GetPrescriptionByDoctorSerializer(serializers.ModelSerializer):
 
 class GetPatientByDoctorSerializer(serializers.ModelSerializer):
     
-    patient = serializers.StringRelatedField(many=False)
+    # appointment_id = serializers.StringRelatedField(many=False)
+    name = serializers.CharField(source='user.name')
+
     # appointment_time = serializers.DateTimeField(input_formats=['%Y-%m-%dT%H:%M'])
 
     class Meta:
         model = Patient
-        fields = ('appointment_id',
-                'description',
-                'patient'
+        fields = ('user_id',
+                'name',
+                
                 )
 
 class GetPrescriptionSerializer(serializers.ModelSerializer):
