@@ -82,7 +82,7 @@
                     <thead>
                         <tr>
                             <td>Serial Nos</td>
-                            <td>Patient</td>
+                          
                             <td>Doctor</td>
                             <td>Description</td>
                            
@@ -90,16 +90,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let appointment of appointments | paginate : {
+                        <tr *ngFor="let prescription of prescriptions | paginate : {
                             itemsPerPage: tableSize,
                             currentPage: page,
                             totalItems: count
                           };
                     let i = index" [class.active]="i == currentIndex">
                             <td>{{(page-1)*10 +i +1}}</td>
-                            <td>{{appointment.patient}}</td>
-                            <td>{{appointment.doctor}}</td>
-                            <td>{{appointment.description}}</td>
+                         
+                            <td>{{prescription.doctor}}</td>
+                            <td>{{prescription.description}}</td>
                           
                         </tr>
                     </tbody>

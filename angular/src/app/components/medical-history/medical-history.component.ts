@@ -78,6 +78,7 @@ export class MedicalHistoryComponent implements OnInit {
     this.tableSize = event.target.value;
     this.page = 1;
     this.retrieveAppointments();
+    this.retrievePrescriptions();
   } 
 
   setActiveAppointment(appointment: Appointment, index: number): void {
