@@ -91,7 +91,6 @@ class DoctorSerializer(serializers.ModelSerializer):
         'id',
     )
 
-
 class PatientSerializer(serializers.ModelSerializer):
 
     user = serializers.SlugRelatedField(

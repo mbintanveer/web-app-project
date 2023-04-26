@@ -11,7 +11,8 @@ import { UserProfile } from "./user-profile";
 export class UserProfileComponent implements OnInit {
 userProfile: UserProfile|null = null;
 
-  constructor(private userProfileService: UserProfileService, private activatedRoute: ActivatedRoute) { }
+  constructor(private userProfileService: UserProfileService, private activatedRoute: ActivatedRoute) {
+   }
 
   ngOnInit(): void {
     const userId = this.activatedRoute.snapshot.paramMap.get('id');

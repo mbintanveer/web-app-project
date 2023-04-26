@@ -22,8 +22,6 @@ class PatientSignupView(generics.GenericAPIView):
         return Response ({"user": UserSerializer(user, context= self.get_serializer_context()).data,
         "token": Token.objects.get(user=user).key, 
         "message": "Account created successfully"})
-    
-
 
 
 class DoctorSignupView(generics.GenericAPIView):
@@ -49,10 +47,10 @@ class CustomAuthToken(ObtainAuthToken):
         'token': token.key,
         'user_id': user.pk,
         'is_patient': user.is_patient,
+        'is_doctor':user.is_doctor,
         })
 
         
-
 class LogoutView(APIView):
     def post(self, request, format=None):
         request.auth.delete()
