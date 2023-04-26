@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import json
 import string
 from django.http import response
@@ -7,6 +8,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser 
 from rest_framework import status
+from django.db.models import Q
+from django.utils import timezone
+
+
 
 from .serializers import GetPatientByDoctorSerializer, GetPrescriptionByDoctorSerializer, GetPrescriptionSerializer, PostAppointmentSerializer,  DepartmentSerializer, GetAppointmentByPatientSerializer, GetAppointmentByDoctorSerializer, MedicinesSerializer, PrescriptionSerializer
 from rest_framework.decorators import api_view
@@ -78,22 +83,35 @@ def appointments_list(request):
 
     elif request.method == 'POST':
         appointment_data = JSONParser().parse(request)
+        appointment_time_str = appointment_data['appointment_time']
         user_id = appointment_data['patient']
-        try: 
-            patient = Patient.objects.get(user=user_id) 
-            print(patient.user.name)
-            appointment_data['patient']=patient.pk
-        except Patient.DoesNotExist: 
-            return JsonResponse({'message': 'The tutorial does not exist'}, status=status.HTTP_404_NOT_FOUND) 
-        print(appointment_data)
+        doctor_id = appointment_data['doctor']
+        appointment_time = datetime.strptime(appointment_time_str, '%Y-%m-%dT%H:%M')
+        thirty_minutes_before = appointment_time - timedelta(minutes=30)
+        thirty_minutes_after = appointment_time + timedelta(minutes=30)
+        appointment_data['appointment_time'] = appointment_time
+
+        try:
+            # Check if the doctor already has an appointment 30 minutes before or after the chosen time
+            appointment_exists = Appointment.objects.filter(
+                Q(doctor_id=doctor_id) &
+                (Q(appointment_time__gte=thirty_minutes_before) & Q(appointment_time__lt=appointment_time) |
+                Q(appointment_time__gt=appointment_time) & Q(appointment_time__lte=thirty_minutes_after))
+            ).exists()
+            if appointment_exists:
+                return JsonResponse({'message': 'Doctor already has an appointment scheduled 30 minutes before or after the chosen time.'},
+                                    status=status.HTTP_400_BAD_REQUEST)
+            # Get the patient object using the user_id
+            patient = Patient.objects.get(user=user_id)
+            appointment_data['patient'] = patient.pk
+        except Patient.DoesNotExist:
+            return JsonResponse({'message': 'The patient does not exist'}, status=status.HTTP_404_NOT_FOUND)
         appointment_serializer = PostAppointmentSerializer(data=appointment_data)
-        # patient_id = appointment_serializer.
         if appointment_serializer.is_valid():
             appointment_serializer.save()
-            return JsonResponse(appointment_serializer.data, status=status.HTTP_201_CREATED) 
+            return JsonResponse(appointment_serializer.data, status=status.HTTP_201_CREATED)
         return JsonResponse(appointment_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-  
+    
 @api_view(['GET','PUT','DELETE'])
 def appointments_detail(request, pk):  
     try: 

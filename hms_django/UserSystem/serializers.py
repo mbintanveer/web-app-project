@@ -89,10 +89,6 @@ class DoctorSerializer(serializers.ModelSerializer):
         fields = (
         'user',
         'id',
-        'address',
-        'phone',
-        'age',
-        'gender',
     )
 
 

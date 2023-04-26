@@ -29,6 +29,8 @@ import { MatCardModule } from '@angular/material/card';
 import { PrescriptionsListComponent } from './components/patient-prescriptions-list/prescriptions-list.component';
 import { DoctorAppointmentsListComponent } from './components/doctor-appointments-list/appointments-list.component';
 import { DoctorPrescriptionsListComponent } from './components/doctor-prescriptions-list/prescriptions-list.component';
+import { PharmacyPrescriptionsListComponent } from './components/pharmacy-prescriptions-list/prescriptions-list.component';
+
 import { DoctorPatientsListComponent } from './components/doctor-patients-list/patients-list.component';
 import { DoctorSignupComponent } from './components/doctor-signup/doctor-signup.component';
 import { PatientSignupComponent } from './components/patient-signup/patient-signup.component';
@@ -47,13 +49,15 @@ import { MedicalHistoryComponent } from './components/medical-history/medical-hi
     PatientAppointmentsListComponent,
     DoctorAppointmentsListComponent,
     DoctorPrescriptionsListComponent,
+    PharmacyPrescriptionsListComponent,
     UserLoginComponent,
     UserProfileComponent,
     DoctorPatientsListComponent,
     DoctorSignupComponent,
     PatientSignupComponent,
     PrescriptionsListComponent,
-    MedicalHistoryComponent,
+    MedicalHistoryComponent
+  
   ],
 
   exports: [

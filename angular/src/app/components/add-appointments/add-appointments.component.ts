@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Appointment } from 'src/app/models/appointment.model';
 import { AppointmentService } from 'src/app/services/patient-appointment.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ActivatedRoute } from "@angular/router";
 
@@ -25,6 +26,7 @@ export class AddAppointmentsComponent implements OnInit {
   doctors?: Doctor[];
 
   constructor (private appointmentService: AppointmentService,
+    private snackBar: MatSnackBar,
     private clientService: DoctorService,
     private router: Router,
     private activatedRoute: ActivatedRoute){
@@ -49,19 +51,12 @@ export class AddAppointmentsComponent implements OnInit {
   }
 
   saveAppointment(): void {
-    
-    // const userData = ;
- 
-    const userData = JSON.parse(localStorage.getItem('userData')|| '{}')
- 
+    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
     const data = {
-      
       description: this.appointment.description,
-      doctor:this.appointment.doctor,
+      doctor: this.appointment.doctor,
       patient: ""+userData.user_id,
-      // patient: 3
-      appointment_time: this.appointment.appointment_time // add appointment_time field here
-
+      appointment_time: this.appointment.appointment_time
     };
     
     this.appointmentService.create(data)
@@ -69,10 +64,13 @@ export class AddAppointmentsComponent implements OnInit {
         response => {
           console.log(response);
           this.router.navigate(['/View-Doctors/'+this.appointment.patient]);
+          this.snackBar.open('Appointment booked successfully', 'Close', { duration: 3000 });
         },
         error => {
           console.log(error);
-        });
+          this.snackBar.open('Error - There is already a Booking 30 minutes before and after. Please try another time.', 'Close', { duration: 8000 });
+        }
+      );
   }
 
   newAppointment(): void {

@@ -20,6 +20,8 @@ import { MedicalHistoryComponent } from './components/medical-history/medical-hi
 import { DoctorAppointmentsListComponent } from './components/doctor-appointments-list/appointments-list.component';
 import { DoctorPatientsListComponent } from './components/doctor-patients-list/patients-list.component';
 import { DoctorPrescriptionsListComponent } from './components/doctor-prescriptions-list/prescriptions-list.component';
+import { PharmacyPrescriptionsListComponent } from './components/pharmacy-prescriptions-list/prescriptions-list.component';
+
 import { DoctorSignupComponent } from './components/doctor-signup/doctor-signup.component';
 import { PatientSignupComponent } from './components/patient-signup/patient-signup.component';
 
@@ -33,8 +35,10 @@ const routes: Routes = [
   { path: 'Doctor-Appointments', component: DoctorAppointmentsListComponent,canActivate: [AuthGuard] },
   { path: 'Doctor-Patients', component: DoctorPatientsListComponent,canActivate: [AuthGuard] },
   { path: 'Patient-Prescriptions', component: PrescriptionsListComponent ,canActivate: [AuthGuard] },
+  { path: 'Pharmacy-Prescriptions', component: PharmacyPrescriptionsListComponent,canActivate: [AuthGuard] }, 
   { path: 'Doctor-Prescriptions', component: DoctorPrescriptionsListComponent,canActivate: [AuthGuard] }, 
-// { path: 'Add-Prescription', component: AddPrescriptionsComponent, canActivate: [AuthGuard] },
+
+  // { path: 'Add-Prescription', component: AddPrescriptionsComponent, canActivate: [AuthGuard] },
   //Doctors
   // { path: 'Doctors', component: DoctorsListComponent, canActivate: [AuthGuard] },
   { path: 'Doctors/:id', component: DoctorsDetailsComponent,  },
