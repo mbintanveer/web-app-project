@@ -4,5 +4,6 @@ export class Prescription {
     description?:string;
     patient?:string;
     appointment_id?:string;
+    phone?:string;
 }
 

@@ -18,10 +18,10 @@
                     <thead>
                         <tr>
                             <td>Serial Nos</td>
-                            <td>Description</td>
                             <td>Patient</td>
+                            <td>Description</td>
                             <td>Phone</td>
-                            <td>Doctor</td>
+                            
                         
                         </tr>
                     </thead>
@@ -34,17 +34,10 @@
                     let i = index" [class.active]="i == currentIndex">
                             <td>{{(page-1)*10 +i +1}}</td>
                             <td>{{prescription.patient}}</td>
-                            <td>{{prescription.doctor}}</td>
+                            <!-- <td>{{prescription.doctor}}</td> -->
                             <td>{{prescription.description}}</td>
                             <td>{{prescription.phone}}</td>
-                            <td>
-                                <!-- <a routerLink="/View-Appointments/{{appointment.appointment_id}}">
-                                    View
-                                </a> | 
-                                <a routerLink="/Prescriptions/{{prescription.prescription_id}}">
-                                    Edit
-                                </a> -->
-                            </td>
+                          
                         </tr>
                     </tbody>
                 </table>

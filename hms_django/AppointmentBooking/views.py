@@ -13,7 +13,7 @@ from django.utils import timezone
 
 
 
-from .serializers import GetPatientByDoctorSerializer, GetPrescriptionByDoctorSerializer, GetPrescriptionSerializer, PostAppointmentSerializer,  DepartmentSerializer, GetAppointmentByPatientSerializer, GetAppointmentByDoctorSerializer, MedicinesSerializer, PrescriptionSerializer
+from .serializers import GetPatientByDoctorSerializer, GetPrescriptionByDoctorSerializer, GetPrescriptionSerializer, PostAppointmentSerializer,  DepartmentSerializer, GetAppointmentByPatientSerializer, GetAppointmentByDoctorSerializer, MedicinesSerializer, PrescriptionForPharmacySerializer, PrescriptionSerializer
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from django.http import HttpResponse
@@ -248,7 +248,6 @@ def prescriptions_list(request):
             return JsonResponse(prescription_serializer.data, status=status.HTTP_201_CREATED) 
         return JsonResponse(prescription_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-  
 @api_view(['GET','PUT','DELETE'])
 def prescriptions_detail(request, pk):  
     try: 
@@ -271,6 +270,27 @@ def prescriptions_detail(request, pk):
     elif request.method == 'DELETE': 
         prescription.delete() 
         return JsonResponse({'message': 'Prescription was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST']) #Post for new
+def prescriptionsForPharmacy(request):
+    if request.method == 'GET':
+        prescription = Prescription.objects.all()
+        prescription_name_keyword = request.GET.get('prescription_name_keyword', None)
+        if prescription_name_keyword is not None:
+            prescription = prescription.filter(prescription_name__icontains=prescription_name_keyword)
+        
+        prescription_serializer = PrescriptionForPharmacySerializer(prescription, many=True)
+        return JsonResponse(prescription_serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        prescription_data = JSONParser().parse(request)
+        prescription_serializer = PrescriptionSerializer(data=prescription_data)
+        if prescription_serializer.is_valid():
+            prescription_serializer.save()
+            return JsonResponse(prescription_serializer.data, status=status.HTTP_201_CREATED) 
+        return JsonResponse(prescription_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+  
 
 @api_view(['GET','PUT','DELETE'])
 def prescriptionsByPatient(request, pk):  

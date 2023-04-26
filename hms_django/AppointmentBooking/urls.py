@@ -22,7 +22,7 @@ url(r'^api/Prescriptions$', views.prescriptions_list),
 url(r'^api/Prescriptions/(?P<pk>[0-9]+)$', views.prescriptions_detail),
 url(r'^api/PrescriptionsByPatient/(?P<pk>[0-9]+)$', views.prescriptionsByPatient),
 url(r'^api/PrescriptionsByDoctor/(?P<pk>[0-9]+)$', views.prescriptionsByDoctor),
-
+url(r'^api/PrescriptionsForPharmacy$', views.prescriptionsForPharmacy),
 url(r'^api/PatientsByDoctor/(?P<pk>[0-9]+)$', views.patientsByDoctor),
 
 url(r'^api/MedicalHistoryByPatient/(?P<pk>[0-9]+)$', views.MedicalHistoryByPatient),

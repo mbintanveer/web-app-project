@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Prescription } from '../models/prescription.model';
 
 const baseUrl = 'http://localhost:8000/api/Prescriptions';
-const patientUrl = 'http://localhost:8000/api/PrescriptionsByPharmacy';
+const patientUrl = 'http://localhost:8000/api/PrescriptionsForPharmacy';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class PharmacyPrescriptionService {
   constructor(private http: HttpClient) { }
 
   getAll(id: any): Observable<Prescription[]> {
-    return this.http.get<Prescription[]>(`${patientUrl}/${id}`);
+    return this.http.get<Prescription[]>(`${patientUrl}`);
   }
 
   get(id: any): Observable<Prescription> {
