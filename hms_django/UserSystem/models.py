@@ -14,6 +14,7 @@ class User(AbstractUser):
     username=models.CharField(max_length=255)
     is_doctor=models.BooleanField(default=False)
     is_patient=models.BooleanField(default=False)
+    is_pharmacy=models.BooleanField(default=False)
     address=models.CharField(max_length=255,blank=True)
     phone=models.IntegerField(blank=True,null=True)
     age=models.IntegerField(blank=True,null=True)
@@ -36,6 +37,11 @@ class Doctor(models.Model):
         
 class Patient(models.Model):
     user=models.OneToOneField(User, related_name='patient',on_delete=models.CASCADE)
+    def __str__(self):
+        return self.user.name
+    
+class Pharmacy(models.Model):
+    user=models.OneToOneField(User, related_name='pharmacy',on_delete=models.CASCADE)
     def __str__(self):
         return self.user.name
 

@@ -3,9 +3,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from UserSystem.models import Doctor, User,Patient
-from .serializers import PatientSerializer, DoctorSerializer, UserSerializer,PatientSignupSerializer, DoctorSignupSerializer
+from .serializers import PatientSerializer, DoctorSerializer, PharmacySignupSerializer, UserSerializer,PatientSignupSerializer, DoctorSignupSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
-from .permissions import IsPatientUser, IsDoctorUser
+from .permissions import IsPatientUser, IsDoctorUser, IsPharmacyUser
 from . import views
 
 from rest_framework.parsers import JSONParser 
@@ -35,6 +35,18 @@ class DoctorSignupView(generics.GenericAPIView):
         "token": Token.objects.get(user=user).key, 
         "message": "Account created successfully"})
 
+class PharmacySignupView(generics.GenericAPIView):
+    serializer_class=PharmacySignupSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer=self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user=serializer.save()
+        return Response ({"user": UserSerializer(user, context= self.get_serializer_context()).data,
+        "token": Token.objects.get(user=user).key, 
+        "message": "Account created successfully"})
+
+
 class CustomAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
         serializer=self.serializer_class(data=request.data,
@@ -48,6 +60,7 @@ class CustomAuthToken(ObtainAuthToken):
         'user_id': user.pk,
         'is_patient': user.is_patient,
         'is_doctor':user.is_doctor,
+        'is_pharmacy':user.is_pharmacy,
         })
 
         
@@ -70,6 +83,12 @@ class DoctorOnlyView(generics.RetrieveAPIView):
     def get_object(self):
         return self.request.user
 
+class PharmacyOnlyView(generics.RetrieveAPIView):
+    permission_classes=[permissions.IsAuthenticated&IsPharmacyUser]
+    serializer_class=UserSerializer
+
+    def get_object(self):
+        return self.request.user
 
 @api_view(['GET', 'POST']) #Post for new
 def doctors_list(request):

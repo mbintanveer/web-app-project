@@ -7,3 +7,8 @@ class IsPatientUser(BasePermission):
 class IsDoctorUser(BasePermission):
     def has_permission(self,request,view):
         return bool(request.user and request.user.is_doctor)
+
+class IsPharmacyUser(BasePermission):
+    def has_permission(self,request,view):
+        return bool(request.user and request.user.is_pharmacy)
+    

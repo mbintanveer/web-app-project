@@ -5,14 +5,13 @@
     <div id="nav-right">
         <div id="nav-profile">
             <span id="nav-profile-name">
-           HMS
+           Revolotionary Healthcare
         </span>
             <img id="nav-profile-picture" src="assets/my.jpeg" alt="Profile Picture">
-            <select id="nav-dropdown-menu" (change)="onNavigate($event)">
-            <option value="" disabled selected>Select an option</option>
+            <select id="nav-dropdown-menu" (change)="onOptionSelected($event)">
+            <option value="" disabled selected>Options</option>
             <option value="/MedicalHistory" routerLink="/MedicalHistory">MedicalHistory</option>
-            <option value="/EditProfile" routerLink="/EditProfile">Edit Profile</option>
-            <option value="/contact" routerLink="/contact">Logout</option>
+            <option value="/Logout" routerLink="/Logout">Logout</option>
         </select>
               
               

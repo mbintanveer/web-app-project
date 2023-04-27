@@ -24,6 +24,8 @@ import { PharmacyPrescriptionsListComponent } from './components/pharmacy-prescr
 
 import { DoctorSignupComponent } from './components/doctor-signup/doctor-signup.component';
 import { PatientSignupComponent } from './components/patient-signup/patient-signup.component';
+import { PharmacySignupComponent } from './components/pharmacy-signup/pharmacy-signup.component';
+
 
 const routes: Routes = [
   // { path: '', redirectTo: 'Clients', pathMatch: 'full' },
@@ -46,6 +48,7 @@ const routes: Routes = [
   //Signup
   { path: 'doctor-signup', component: DoctorSignupComponent },
   { path: 'patient-signup', component: PatientSignupComponent },
+  { path: 'pharmacy-signup', component: PharmacySignupComponent },
   //Login
 
   { path: 'login', component: UserLoginComponent },

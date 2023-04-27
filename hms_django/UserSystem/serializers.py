@@ -1,8 +1,6 @@
 from rest_framework import serializers
 
-from UserSystem.models import User, Patient, Doctor
-
-
+from UserSystem.models import User, Patient, Doctor, Pharmacy
 
 
 class PatientSignupSerializer(serializers.ModelSerializer):
@@ -76,6 +74,40 @@ class DoctorSignupSerializer(serializers.ModelSerializer):
 
         return user
 
+class PharmacySignupSerializer(serializers.ModelSerializer):
+    password2=serializers.CharField(style={"input_type":"password"}, write_only=True)
+    class Meta:
+        model=User
+        fields=['username','email','password','password2','name','address','phone','age','gender']
+        extra_kwargs={
+            'password': {'write_only':True}
+        }
+
+    def save(self, **kwargs):
+        user= User(
+            username=self.validated_data['username'],
+            email=self.validated_data['email'],
+            name=self.validated_data['name'],
+            address=self.validated_data['address'],
+            phone=self.validated_data['phone'],
+            age=self.validated_data['age'],
+            gender=self.validated_data['gender']
+        )
+        password=self.validated_data['password']
+        password2=self.validated_data['password2']
+
+        if password != password2:
+            raise serializers.ValidationError({"Error":"Passwords do not match."})
+        
+        user.set_password(password)
+        user.is_pharmacy=True
+        user.save()
+        
+        Pharmacy.objects.create(user=user)
+
+        return user
+
+
 class DoctorSerializer(serializers.ModelSerializer):
 
     user = serializers.SlugRelatedField(
@@ -109,9 +141,11 @@ class PatientSerializer(serializers.ModelSerializer):
     'patient',
     
     )
+        
+
     
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=User
-        fields=['username','email', 'is_doctor', 'is_patient',]
+        fields=['username','email', 'is_doctor', 'is_patient','is_pharmacy']
