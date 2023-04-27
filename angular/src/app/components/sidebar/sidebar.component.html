@@ -3,15 +3,18 @@
         <ul id="tab-list">
             <!-- <li><a href="/Services">Services</a></li>
             <li><a href="/Cashflows">Cashflows</a></li> -->
-            <div *ngIf="isPatient()">
+            <ng-container *ngIf="isPatient">
             <li><a href="/Patient-Appointments">Patient-Appointmentss</a></li>
-            <li><a href="/Patient-Prescriptions">Patient-Prescriptions</a></li>
-            </div>
+            <li><a href="/Patient-Prescriptions">Patient-Prescriptions</a></li>      
+            </ng-container>  
+            <ng-container *ngIf="isDoctor">
             <li><a href="/Doctor-Appointments">Doctor-Appointments</a></li>
             <li><a href="/Doctor-Prescriptions">Doctor-Prescriptionss</a></li>
             <li><a href="/Doctor-Patients">Doctor-Patients</a></li>
+            </ng-container>  
+            <ng-container *ngIf="isPharmacy">
             <li><a href="/Pharmacy-Prescriptions">Pharmacy-Prescriptions</a></li>
-
+            </ng-container>
         </ul>
     </div>
 </div>

@@ -12,6 +12,7 @@ export class UserProfileComponent implements OnInit {
 userProfile: UserProfile|null = null;
 
   constructor(private userProfileService: UserProfileService, private activatedRoute: ActivatedRoute) {
+    
    }
 
   ngOnInit(): void {
