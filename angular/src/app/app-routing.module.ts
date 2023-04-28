@@ -7,7 +7,7 @@ import { AddAppointmentsComponent } from './components/add-appointments/add-appo
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { PrescriptionsListComponent } from './components/patient-prescriptions-list/prescriptions-list.component';
 // import { PrescriptionsDetailsComponent } from './components/prescriptions-details/prescriptions-details.component';
-// import { AddPrescriptionsComponent } from './components/add-prescriptions/add-prescriptions.component';
+import { AddPrescriptionsComponent } from './components/add-prescription/add-prescriptions.component';
 
 import { PatientAppointmentsListComponent } from './components/patient-appointments-list/appointments-list.component';
 import { DoctorsDetailsComponent } from './components/doctors-details/doctors-details.component';
@@ -40,7 +40,7 @@ const routes: Routes = [
   { path: 'Pharmacy-Prescriptions', component: PharmacyPrescriptionsListComponent,canActivate: [AuthGuard] }, 
   { path: 'Doctor-Prescriptions', component: DoctorPrescriptionsListComponent,canActivate: [AuthGuard] }, 
 
-  // { path: 'Add-Prescription', component: AddPrescriptionsComponent, canActivate: [AuthGuard] },
+  { path: 'Add-Prescription', component: AddPrescriptionsComponent, canActivate: [AuthGuard] },
   //Doctors
   // { path: 'Doctors', component: DoctorsListComponent, canActivate: [AuthGuard] },
   { path: 'Doctors/:id', component: DoctorsDetailsComponent,  },

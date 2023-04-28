@@ -10,7 +10,7 @@
                         <div>
                             <!-- <input id="search" type="text" placeholder="Search Appointments" [(ngModel)]="appointment_type">
                             <button id="search-appointments" class="table-header-button" (click)="searchAppointments()">Search Appointments</button> -->
-                            <button id="add-prescriptions" class="table-header-button" routerLink="/Add-Prescription">Add Prescriptions</button>
+                            <!-- <button id="add-prescriptions" class="table-header-button" routerLink="/Add-Prescription">Add Prescriptions</button> -->
                         </div>
                     </div>
                 </div>
@@ -18,9 +18,9 @@
                     <thead>
                         <tr>
                             <td>Serial Nos</td>
+                            
+                            <td>Patient</td>
                             <td>Description</td>
-                            <td>Patientx</td>
-                            <td>Doctor</td>
                             
                         </tr>
                     </thead>
@@ -33,16 +33,9 @@
                     let i = index" [class.active]="i == currentIndex">
                             <td>{{(page-1)*10 +i +1}}</td>
                             <td>{{prescription.patient}}</td>
-                            <td>{{prescription.doctor}}</td>
+                            
                             <td>{{prescription.description}}</td>
-                            <td>
-                                <!-- <a routerLink="/View-Appointments/{{appointment.appointment_id}}">
-                                    View
-                                </a> | -->
-                                <a routerLink="/Prescriptions/{{prescription.prescription_id}}">
-                                    Edit
-                                </a>
-                            </td>
+                         
                         </tr>
                     </tbody>
                 </table>

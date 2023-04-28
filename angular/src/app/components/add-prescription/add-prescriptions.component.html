@@ -1,0 +1,34 @@
+<div>
+    <div class="submit-form">
+        <div *ngIf="!submitted">
+            <b><h2>Add an Prescription - Now</h2></b>
+            
+
+            <!-- <div class="form-group">
+                <label for="prescription_time">Date Created</label> <br>
+                <input type="date" id="prescription_time" name="prescription_time" required [(ngModel)]="prescription.prescription_time">
+            </div> -->
+
+            <label for="doctor">Appointment </label> <br>
+
+            <select class=form-group [(ngModel)]="prescription.appointment_id">
+                <option *ngFor="let appointment of appointments" [value]="appointment.appointment_id">
+                  {{appointment.description}}
+                </option>
+            </select>
+
+            <div class="form-group">
+                <label for="description">Description</label> <br>
+                <input type="text" id="description" required [(ngModel)]="prescription.description" name="description">
+            </div>
+
+            <br>
+            <button (click)="savePrescription() " class="btn btn-success ">Submit</button>
+        </div>
+
+        <div *ngIf="submitted ">
+            <h4>Prescription was submitted successfully!</h4>
+            <button class="btn btn-success " (click)="newPrescription() ">Add</button>
+        </div>
+    </div>
+</div>

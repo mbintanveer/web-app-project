@@ -238,6 +238,7 @@ def prescriptions_list(request):
             prescription = prescription.filter(prescription_name__icontains=prescription_name_keyword)
         
         prescription_serializer = PrescriptionSerializer(prescription, many=True)
+        print(prescription_serializer)
         return JsonResponse(prescription_serializer.data, safe=False)
 
     elif request.method == 'POST':

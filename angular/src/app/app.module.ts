@@ -38,6 +38,7 @@ import { PatientSignupComponent } from './components/patient-signup/patient-sign
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MedicalHistoryComponent } from './components/medical-history/medical-history.component';
 import { PharmacySignupComponent } from './components/pharmacy-signup/pharmacy-signup.component';
+import { AddPrescriptionsComponent } from './components/add-prescription/add-prescriptions.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { PharmacySignupComponent } from './components/pharmacy-signup/pharmacy-s
     PatientSignupComponent,
     PrescriptionsListComponent,
     MedicalHistoryComponent,
-    PharmacySignupComponent
+    PharmacySignupComponent,
+    AddPrescriptionsComponent
   
   ],
 
