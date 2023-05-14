@@ -1,14 +1,54 @@
-<div *ngIf="userProfile">
-    <h1 class="profile-heading">Patient Profile</h1>
-    <mat-card class="profile-card">
-      <mat-card-header>
-        <mat-card-title>Hey there, {{ userProfile.username }}</mat-card-title>
-        <b></b>
-     </mat-card-header>
-     <mat-card-content>
-        <p>
-          
-        </p>
-     </mat-card-content>
-    </mat-card>
-    </div>
+<div class="container">
+   <section class="hero">
+     <h1>Welcome to Revolutionary Healthcare</h1>
+     <p>Empowering patients, doctors, and pharmacies with transparency, trust, and integrity.</p>
+
+   </section>
+ 
+   <section class="feature">
+     <div class="feature-content">
+       <h2>Transforming Healthcare with Innovation</h2>
+       <p>Revolutionary Healthcare provides state-of-the-art solutions for efficient and reliable healthcare services. Our platform is designed to enhance patient care, streamline medical workflows, and ensure secure collaboration among healthcare professionals.</p>
+     </div>
+   </section>
+ 
+   <section class="feature">
+     <div class="feature-content">
+       <h2>Empowering Patients</h2>
+       <p>We put patients at the center of their own healthcare journey. With our user-friendly interface, patients can access their medical records, schedule appointments, receive personalized health recommendations, and securely communicate with their healthcare providers.</p>
+     </div>
+   </section>
+ 
+   <section class="feature">
+     <div class="feature-content">
+       <h2>Enhancing Collaboration</h2>
+       <p>Revolutionary Healthcare fosters seamless collaboration between doctors, pharmacists, and patients. Our platform allows healthcare professionals to securely share medical information, exchange messages, and coordinate treatment plans, ensuring optimal patient outcomes.</p>
+     </div>
+   </section>
+ 
+   <section class="feature">
+     <div class="feature-content">
+       <h2>Advanced Medication Management</h2>
+       <p>Efficiently manage medications with our integrated system. Patients can keep track of their prescriptions, receive reminders for refills, and stay informed about potential drug interactions or allergies. We also facilitate seamless prescription refill requests with partner pharmacies.</p>
+     </div>
+   </section>
+ 
+   <section class="cta">
+     <h2>Join the Revolutionary Healthcare Family Today!</h2>
+     <p>Experience the future of healthcare with transparency, trust, and integrity.</p>
+     <div class="cta-buttons">
+       <button routerLink="/patient-signup">Sign Up as a Patient</button>
+       <button routerLink="/doctor-signup">Sign Up as a Doctor</button>
+       <button routerLink="/pharmacy-signup">Sign Up as a Pharmacy</button>
+     </div>
+   </section>
+<br><br><br>
+   <section class="cta">
+      <h2>Already a User?</h2>
+      
+      <div class="cta-buttons">
+        <button routerLink="/login">Login</button>
+      </div>
+    </section>
+ </div>
+ 

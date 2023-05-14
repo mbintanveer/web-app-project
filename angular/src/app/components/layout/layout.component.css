@@ -1,0 +1,10 @@
+.container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .main-content {
+    flex: 1;
+    /* Additional styles for the main content area */
+  }
+  

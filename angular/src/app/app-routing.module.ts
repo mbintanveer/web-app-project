@@ -25,12 +25,12 @@ import { PharmacyPrescriptionsListComponent } from './components/pharmacy-prescr
 import { DoctorSignupComponent } from './components/doctor-signup/doctor-signup.component';
 import { PatientSignupComponent } from './components/patient-signup/patient-signup.component';
 import { PharmacySignupComponent } from './components/pharmacy-signup/pharmacy-signup.component';
-
+import { LayoutComponent } from './components/layout/layout.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: 'Clients', pathMatch: 'full' },
-  { path: '', component: UserProfileComponent, pathMatch: 'full', canActivate: [AuthGuard] },
-
+  { path: '', component: UserProfileComponent, pathMatch: 'full', },
+  {path: '', component: LayoutComponent, children: [
   { path: 'Patient-Appointments', component: PatientAppointmentsListComponent,canActivate: [AuthGuard] },
   { path: 'Appointments/:id', component: AppointmentsDetailsComponent, canActivate: [AuthGuard] },
   { path: 'Add-Appointment', component: AddAppointmentsComponent, canActivate: [AuthGuard] },
@@ -39,21 +39,19 @@ const routes: Routes = [
   { path: 'Patient-Prescriptions', component: PrescriptionsListComponent ,canActivate: [AuthGuard] },
   { path: 'Pharmacy-Prescriptions', component: PharmacyPrescriptionsListComponent,canActivate: [AuthGuard] }, 
   { path: 'Doctor-Prescriptions', component: DoctorPrescriptionsListComponent,canActivate: [AuthGuard] }, 
-
   { path: 'Add-Prescription', component: AddPrescriptionsComponent, canActivate: [AuthGuard] },
-  //Doctors
-  // { path: 'Doctors', component: DoctorsListComponent, canActivate: [AuthGuard] },
   { path: 'Doctors/:id', component: DoctorsDetailsComponent,  },
-
-  //Signup
+ ],
+  },
   { path: 'doctor-signup', component: DoctorSignupComponent },
   { path: 'patient-signup', component: PatientSignupComponent },
   { path: 'pharmacy-signup', component: PharmacySignupComponent },
-  //Login
+  //Signup
 
+  //Login
   { path: 'login', component: UserLoginComponent },
   { path: 'user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard] },
-  {path: 'MedicalHistory', component: MedicalHistoryComponent },
+  {path: 'MedicalHistory', component: MedicalHistoryComponent,canActivate: [AuthGuard] },
   {path: 'EditProfile', component: EditProfileComponent },
   //Other Redirect
   // { path: '**', redirectTo: '' },
