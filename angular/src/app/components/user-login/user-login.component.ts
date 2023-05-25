@@ -25,13 +25,20 @@ export class UserLoginComponent implements OnInit {
    this.authService.logIn(user.username, user.password).subscribe({
      next: (data) => {
        this.authService.setLoggedInUser(data);
-       this.router.navigateByUrl(`/user-profile/${data.user_id}`);
-     },
-     error: (error) => {
-       console.log(error);
-     }
-   }
-   );
+       if (data.is_pharmacy) {
+         this.router.navigateByUrl('/Pharmacy-Prescriptions');
+        } else if (data.is_doctor) {
+          this.router.navigateByUrl('/Doctor-Prescriptions');
+        } else if (data.is_patient) {
+          this.router.navigateByUrl('Patient-Prescriptions');
+        } else {
+          // Handle other cases or provide a default route
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
   }
 
   onSubmit(formData: UserCredentials): void {
