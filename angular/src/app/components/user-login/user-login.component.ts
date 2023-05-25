@@ -28,9 +28,9 @@ export class UserLoginComponent implements OnInit {
        if (data.is_pharmacy) {
          this.router.navigateByUrl('/Pharmacy-Prescriptions');
         } else if (data.is_doctor) {
-          this.router.navigateByUrl('/Doctor-Prescriptions');
+          this.router.navigateByUrl('/Doctor-Appointments');
         } else if (data.is_patient) {
-          this.router.navigateByUrl('Patient-Prescriptions');
+          this.router.navigateByUrl('/Patient-Appointments');
         } else {
           // Handle other cases or provide a default route
         }

@@ -10,7 +10,7 @@
                         <div>
                             <!-- <input id="search" type="text" placeholder="Search Appointments" [(ngModel)]="appointment_type">
                             <button id="search-appointments" class="table-header-button" (click)="searchAppointments()">Search Appointments</button> -->
-                            <button id="add-appointments" class="table-header-button" routerLink="/Add-Appointment">Add Appointments</button>
+                            <!-- <button id="add-appointments" class="table-header-button" routerLink="/Add-Appointment">Add Appointments</button> -->
                         </div>
                     </div>
                 </div>
@@ -37,12 +37,8 @@
                             <td>{{appointment.doctor}}</td>
                             <td>{{appointment.description}}</td>
                             <td>
-                                <!-- <a routerLink="/View-Appointments/{{appointment.appointment_id}}">
-                                    View
-                                </a> | -->
-                                <a routerLink="/Appointments/{{appointment.appointment_id}}">
-                                    Edit
-                                </a>
+                                {{appointment.appointment_time}}
+        
                             </td>
                         </tr>
                     </tbody>

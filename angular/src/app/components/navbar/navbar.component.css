@@ -8,7 +8,10 @@ a:link,
 a:visited {
     color: #16a3b4;
 }
-
+#nav-logo {
+    width: 80px; /* Adjust the width as per your preference */
+    height: auto; /* Maintain aspect ratio */
+  }
 body {
     margin: 0;
     font-size: 0.7em;
